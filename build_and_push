@@ -1,0 +1,22 @@
+#!/bin/bash
+build_env="$1"
+#vue build
+npm install
+npm i node-sass --sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+if [ -z ${build_env} ]; then
+  npm run build:prod
+  if [ $? -eq 0 ]; then
+    docker build -t reg.icity-os.com/cityos/portal-web:1.0 .
+    docker push reg.icity-os.com/cityos/portal-web:1.0
+  else
+    exit 1
+  fi
+else
+  npm run build:${build_env}
+  if [ $? -eq 0 ]; then
+    docker build -t reg.icity-os.com/cityos/portal-web:1.0-${build_env} .
+    docker push reg.icity-os.com/cityos/portal-web:1.0-${build_env}
+  else
+    exit 1
+  fi
+fi

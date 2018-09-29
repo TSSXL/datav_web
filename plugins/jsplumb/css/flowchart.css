@@ -1,0 +1,176 @@
+
+
+/* ------------------------ dialogs ----------------------------*/
+
+/* ----------------------- drag/drop interactions -------------- */
+.drop-hover {
+  background-color: #FCCCCC !important;
+}
+
+/* ----------------------- node styles ------------------------- */
+
+.flowchart-object {
+  position: absolute;
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.8;
+  z-index: 10;
+  background: none;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+.flowchart-object svg {
+  position: absolute;
+  stroke: none;
+  fill: #234b5e;
+  left: 0px;
+  top: 0px;
+}
+
+.flowchart-object text {
+  stroke: none;
+  fill: #f7ebca;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+
+}
+
+.flowchart-object .node-action {
+  display: none;
+  position: absolute;
+  top: -12px;
+  cursor: pointer;
+  /*color: white;*/
+  z-index: 10000;
+}
+
+.flowchart-object .drag-start {
+  cursor: pointer;
+}
+
+.flowchart-object .node-action:hover {
+  color: #ff8000;
+}
+
+.flowchart-object .node-edit {
+  /*left: 50%;
+  margin-left: -20px;*/
+  left: 28px;
+}
+
+.flowchart-object .node-delete {
+  /*left: 50%;
+  margin-left: 10px;*/
+  left: 44px;
+}
+
+.flowchart-object.jtk-surface-selected-element .node-action {
+  display: block;
+}
+
+.outer {
+  fill:gray;
+  opacity:0.3;
+  cursor:pointer;
+}
+
+.flowchart-object:hover .outer {
+  opacity:0.7;
+}
+
+.inner {
+  cursor:move !important;
+}
+
+.connection-drop svg {
+  fill:#CCC;
+}
+
+.connection-drop text {
+  fill:black;
+}
+.jtk-node {
+  background-color: #3E7E9C;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  position: absolute;
+  z-index: 11;
+  /*overflow: hidden;*/
+  min-width: 30px;
+  min-height: 30px;
+  width: auto;
+}
+
+.jtk-node .name {
+  background-color: #3E7E9C;
+  color: #f7ebca;
+  cursor: move;
+  font-size: 12px;
+  line-height: 18px;
+  padding: 6px;
+  text-align: center;
+}
+.icon{
+  margin-top: 6px;
+}
+.connect {
+  width: 10px;
+  height: 10px;
+  /*background-color: #f76258;*/
+  background-color: #2ecc9d;
+  position: absolute;
+  bottom: 10px;
+  right: 5px;
+}
+.delete {
+  padding: 0px;
+}
+.jtk-animate-source {
+  outline: 4px solid yellow;
+}
+/** applied to a node that a path is traversing on its way to another node */
+.jtk-animate-node-traversing {
+  outline:4px solid orange;
+}
+
+.jtk-animate-edge-traversable path {
+
+}
+
+/** applied to an edge that an overlay is traversing */
+.jtk-animate-edge-traversing path {
+  stroke-dasharray:0 2 2;
+  stroke:orange;
+  stroke-width:2;
+}
+.jtk-demo-dataset {
+  text-align: left;
+  max-height: 600px;
+  overflow: auto;
+}
+/*
+pre {
+  outline: 1px solid #ccc;
+  padding: 5px;
+  margin: 0;
+}
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #333;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+*/

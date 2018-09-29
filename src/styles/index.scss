@@ -1,0 +1,425 @@
+@import './element-ui.scss';
+@import './mixin.scss';
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+//vue router transition css
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .2s ease
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+//main-container全局样式
+.app-main{
+  min-height: 100%
+}
+
+.app-container {
+  /*padding: 20px;
+  padding-top: 50px;*/
+}
+
+.app-container.item{
+  max-width: 720px;
+}
+
+.svg-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.validate.is-danger {
+  color: #ff3860;
+}
+
+.filter-container {
+  padding-bottom: 10px;
+  .filter-item {
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 10px;
+  }
+}
+
+.pagination-container {
+  margin-top: 20px;
+}
+
+
+.footer-toolbar {
+  padding: 10px;
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0px;
+  z-index: 1009;
+  background-color: #f0f0f0;
+  border-top:1px solid #d1d1d1;
+}
+
+.el-checkbox {
+  margin-right: 30px;
+  font-size:  12px;
+}
+.el-checkbox__label {
+  font-size: 12px;
+}
+.el-checkbox+.el-checkbox {
+  margin-left: 0px;
+}
+.el-radio {
+  margin-right: 30px;
+}
+.el-radio+.el-radio {
+  margin-left: 0px;
+}
+.el-radio__label {
+  font-size: 12px;
+}
+.el-tag {
+  margin-right: 6px;
+}
+.el-menu {
+  border-right: 0px;
+}
+.el-menu-item, .el-submenu__title {
+  height: 36px;
+  line-height: 36px;
+  padding: 0 16px;
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.el-submenu .el-menu-item {
+  font-size: 13px;
+  color: #6f7180;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 45px;
+  min-width: 200px;
+}
+
+.el-form-item--mini .el-form-item__content, .el-form-item--mini .el-form-item__label {
+  font-size: 12px;
+}
+
+.view .el-form-item--mini.el-form-item, .view .el-form-item--small.el-form-item {
+  margin-bottom: 0px;
+}
+.el-form-item--mini.el-form-item, .el-form-item--small.el-form-item {
+  margin-bottom: 6px;
+}
+.el-breadcrumb__inner, .el-breadcrumb__inner a {
+  font-weight: 400;
+  color: rgb(118, 193, 217);
+}
+.el-card__body {
+  padding: 10px;
+}
+.el-card__header {
+  padding: 12px 10px 2px 10px;
+}
+.el-textarea__inner {
+  font-size: 12px;
+}
+.page-component__scroll {
+  height: calc(100% - 22px);
+  margin-top: 40px;
+}
+
+.page-component.page-container {
+  padding: 0;
+}
+
+.page-component {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.container, .page-container {
+  width: 1140px;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.page-component .page-component__nav {
+  height: calc(100% - 22px);
+  width: 160px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin-top: 40px;
+  transition: padding-top .3s;
+}
+.page-component .page-component__content {
+  padding-left: 180px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+.title {
+  font-weight: 400;
+  color: rgb(118, 193, 217);
+  font-size: 12px;
+}
+.sub-title {
+  color: #909399;
+  font-size: 12px;
+  margin: 6px 0px; padding: 6px; border-bottom: 1px solid #DCDFE6
+}
+.info {
+  color: #909399;
+  font-size: 12px;
+}
+.CodeMirror {
+  height: auto !important;
+  border: 1px solid #b4bccc!important;
+}
+.tab .el-tabs__content {
+  padding: 5px !important;
+}
+.app-list-card .el-badge__content {
+  background-color: #eb9e05;
+  border-radius: 6px;
+  color: #fff;
+  display: inline-block;
+  font-size: 10px;
+  height: 14px;
+  line-height: 14px;
+  padding: 0 3px;
+  text-align: center;
+  border: 1px solid #fff;
+}
+.app-list-card .el-badge__content.is-fixed {
+  top: -4px;
+  right: 4px;
+}
+
+/*tree 的样式*/
+.el-tree {
+  position: relative;
+  cursor: default;
+  background: #fff;
+  color: #606266;
+}
+.el-tree-node {
+  white-space: nowrap;
+  outline: none;
+}
+.el-tree__drop-indicator{position:absolute;left:0;right:0;height:1px;background-color:#409EFF}
+
+.el-tree__empty-text {
+  font-size: 12px;
+}
+.el-pagination__sizes .el-input .el-input__inner {
+  font-size: 11px;
+}
+/*box*/
+.box-block {
+  border: 1px solid #ebebeb;
+  border-radius: 3px;
+  transition: .2s;
+}
+.box-block .source,.meta {
+  padding: 24px;
+}
+.box-block .meta {
+  background-color: #fafafa;
+  border-top: 1px solid #eaeefb;
+  overflow: hidden;
+  transition: height .2s;
+}
+.box-block .box-block-control {
+  border-top: 1px solid #eaeefb;
+  height: 44px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  text-align: center;
+  margin-top: -1px;
+  color: #d3dce6;
+  cursor: pointer;
+  position: relative;
+}
+.box-block:hover{
+  box-shadow: 0 0 8px 0 rgba(232,237,250,.6),0 2px 4px 0 rgba(232,237,250,.5);
+}
+.box-block .box-block-control:hover{
+  color: #409eff;
+  background-color: #f9fafc;
+}
+.el-transfer-panel .el-transfer-panel__header .el-checkbox .el-checkbox__label{
+  font-size: 12px;
+}
+.el-transfer {
+  font-size: 12px;
+}
+.el-cascader-menu__item {
+  font-size: 12px;
+  height: 28px;
+}
+
+.el-select-dropdown__item {
+  font-size: 12px;
+}
+
+.el-tabs__item {
+  font-size: 12px;
+}
+
+.el-icon-caret-left{
+  cursor:pointer;
+  color:rgb(118, 193, 217);
+}
+.el-icon-caret-right{
+  cursor:pointer;
+  color:rgb(118, 193, 217);
+}
+.el-step__title{
+  font-size:12px
+}
+
+.el-collapse-item__content {
+  padding-bottom: 0px;
+}
+
+
+
+.step .el-step__icon.is-icon{
+  width:5px;
+}
+
+.step .el-step__title {
+  font-size: 12px;
+  line-height: 11px;
+}
+
+.el-collapse-item__header {
+  height: 32px;
+  line-height: 32px;
+}
+
+.el-dialog__body {
+  padding: 12px 8px;
+  color: #5a5e66;
+  line-height: 16px;
+  font-size: 12px;
+}
+
+.el-collapse-item__arrow {
+  line-height: 32px;
+}
+
+h3 {
+  font-weight: 400;
+  color: #1f2f3d;
+}
+
+#monitorLogList .el-table__body-wrapper{
+  overflow: hidden;
+}
+
+.is-error .el-input__inner,.is-error .el-textarea__inner {
+  border-color: #e74c3c;
+  background-image: url(/static/warning.png);
+  background-size: 12px 12px;
+  background-position:  98% 50%;
+  background-repeat: no-repeat;
+}
+
+.control .el-alert {
+  padding: 2px;
+}
+.has-error {
+  color: #e74c3c; font-size: 6px;
+}
+.custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
+  font-size: 12px;
+}
+
+.custom-tree-node .info {
+  font-size: 10px;
+  margin-right: 12px;
+}
+
+.step .el-step__icon-inner[class*=el-icon]:not(.is-status){
+  font-size: 12px;
+}
+
+.step .el-icon-error {
+  color: #EB5F5B;
+  cursor: pointer;
+}
+
+.step .el-icon-success {
+  color: #49DDBC;
+  cursor: pointer;
+}
+.step .el-icon-warning {
+  color: #FAAB08;
+  cursor: pointer;
+}
+
+#monitorLogList .el-card__body{
+  padding: 0px;
+}
+
+.el-table .unUse{
+  background-color: #F5F5F5;
+}
+
+.refInfo .fa-television{
+  color: #0B61A4;
+}

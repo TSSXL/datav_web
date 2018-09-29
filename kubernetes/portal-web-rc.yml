@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: portal-web
+  labels:
+    name: portal-web
+spec:
+  replicas: 1
+  selector:
+    name: portal-web
+  template:
+    metadata:
+      labels:
+        name: portal-web
+    spec:
+      containers:
+      - name: portal-web
+        image: reg.icity-os.com/cityos/portal-web:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
