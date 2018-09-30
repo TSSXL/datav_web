@@ -1,4 +1,5 @@
 <template>
+  <el-scrollbar class='page-component__scroll' tag="div">
   <div>
     <div class="screen">
       <div class="new-wrap">
@@ -39,6 +40,7 @@
       </div>
     </div>
   </div>
+  </el-scrollbar>
 </template>
 
 <script>
@@ -136,6 +138,10 @@
   }
 </script>
 <style scoped>
+  .el-scrollbar{
+    margin-bottom: 17px;
+    padding-bottom: 17px;
+  }
   .screen {
     overflow: hidden;
     margin: 10px 7px 10px;
