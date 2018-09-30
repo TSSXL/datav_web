@@ -1,13 +1,10 @@
-import fetch from '@/utils/fetchEgg'
-import store from '@/store'
+import fetch from '@/views/visualization/screen/fetch'
 
-function getApi() {
-  return store.getters.urls.portal_visualization_api + 'api/component'
-}
+
 
 export function getList(paging, queries) {
   return fetch({
-    url: getApi() + '/list',
+    url: '/component/list',
     method: 'post',
     params: paging,
     data: queries
@@ -16,7 +13,7 @@ export function getList(paging, queries) {
 
 export function getAll(params, queries) {
   return fetch({
-    url: getApi() + '/all',
+    url: '/component/all',
     method: 'post',
     params: params,
     data: queries
@@ -25,7 +22,7 @@ export function getAll(params, queries) {
 
 export function getItem(id) {
   return fetch({
-    url: getApi() + '/item/' + id,
+    url: '/component/item/' + id,
     method: 'get'
   })
 }
@@ -33,7 +30,7 @@ export function getItem(id) {
 
 export function addItem(obj) {
   return fetch({
-    url: getApi(),
+    url:'/component/',
     method: 'post',
     data: obj
   })
@@ -41,7 +38,7 @@ export function addItem(obj) {
 
 export function editItem(id, obj) {
   return fetch({
-    url: getApi() + '/' + id,
+    url: '/component/' + id,
     method: 'put',
     data: obj
   })
@@ -49,14 +46,14 @@ export function editItem(id, obj) {
 
 export function removeItem(id) {
   return fetch({
-    url: getApi() + '/' + id,
+    url: '/component/' + id,
     method: 'delete'
   })
 }
 
 export function editSort(id, obj) {
   return fetch({
-    url: getApi() + '/sort/' + id,
+    url: '/component/sort/' + id,
     method: 'put',
     data: obj
   })

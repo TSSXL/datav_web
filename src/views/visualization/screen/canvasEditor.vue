@@ -592,7 +592,7 @@
         }
       },
       goBack(){
-        this.$router.push('/app/myvisualization/list')
+        this.$router.push('/visualization/myvisualization/list')
       },
       preview(){
         this.$router.push('/fullscreen/preview/' + this.id)

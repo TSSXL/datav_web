@@ -79,8 +79,9 @@
         this.objQuery = []
         this.objQuery.push({refApp: this.appid})
         getListCover(this.listQuery, this.objQuery).then(response => {
-          this.list = response.data.results;
-          this.total = response.data.total;
+          console.log(JSON.stringify(response))
+          this.list = response.data.content;
+          this.total = response.data.totalElements;
           this.listLoading = false;
         });
       },

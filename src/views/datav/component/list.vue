@@ -102,8 +102,8 @@ export default {
     fetchData() {
       this.listLoading = true
       getList(this.paging, this.queries).then(res => {
-        this.list = res.data.list
-        this.total = res.data.total
+        this.list = res.data.content
+        this.total = res.data.totalElements
         this.listLoading = false
       })
     },
@@ -115,7 +115,7 @@ export default {
       this.$router.push({ path: "/datav/component/add" });
     },
     handleUpdate(row) {
-      this.$router.push({ path: "/datav/component/edit/" + row._id });
+      this.$router.push({ path: "/datav/component/edit/" + row.id });
     },
     handleDelete(row) {
       this.$confirm('此操作将删除记录, 是否继续?', '提示', {
@@ -133,7 +133,7 @@ export default {
       })
     },
     delete(row) {
-      removeItem(row._id).then(res => {
+      removeItem(row.id).then(res => {
         this.$message({
           type: 'success',
           message: '删除成功!'
