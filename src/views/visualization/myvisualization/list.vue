@@ -78,6 +78,7 @@
         this.listLoading = true;
         this.objQuery = []
         this.objQuery.push({refApp: this.appid})
+        console.log(this.objQuery);
         getListCover(this.listQuery, this.objQuery).then(response => {
           console.log(JSON.stringify(response))
           this.list = response.data.content;

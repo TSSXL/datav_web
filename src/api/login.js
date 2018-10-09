@@ -35,7 +35,7 @@ export function getUrls() {
 }
 
 export function logout() {
-  return fetch({
+  return fetchEgg({
     url: '/user/logout',
     method: 'post'
   })

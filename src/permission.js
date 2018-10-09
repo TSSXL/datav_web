@@ -2,7 +2,7 @@ import router from './router'
 import store from './store'
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
-import {getToken, removeToken} from '@/utils/auth' // 验权
+import {getToken,setToken, removeToken} from '@/utils/auth' // 验权
 import {exist as routerExist} from '@/views/sm/dataGroup/api' // 路由
 import {getTree as getMenus, getPermissionMenus} from '@/views/sm/menu/api'
 
@@ -48,6 +48,18 @@ const componentObj = {}
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start()
+  console.log("开始");
+  let token= to.query.token;
+  if(!!token){
+    setToken(token);
+  }
+  let appId= to.query.appid;
+  if(!!appId) {
+
+    store.dispatch('SetAppId', appId).then((res) => {
+    })
+  }
+  console.log(appId);
   if (getToken()) {
     if (to.path === '/login') {
       next({ path: '/' })
@@ -58,6 +70,7 @@ router.beforeEach(async (to, from, next) => {
       }
 
       if (!store.getters.reset) {
+        console.log("开始");
         const routers = []
 
         var components = [
@@ -2590,7 +2603,8 @@ router.beforeEach(async (to, from, next) => {
           }
           // 菜单和路由默认组名相同
           // 定义组件
-          let routerData = [{
+          let routerData = [
+            {
             "group": "default2.0",
             "sort": 0,
             "created": "2018-05-05T03:32:20.237Z",

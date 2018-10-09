@@ -87,18 +87,14 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_NAME', '')
-          commit('SET_ACCOUNT', '')
-          commit('SET_ROLES', [])
-          commit('SET_JOBS', [])
-          commit('SET_URLS', {})
-          removeToken()
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        commit('SET_TOKEN', '')
+        commit('SET_NAME', '')
+        commit('SET_ACCOUNT', '')
+        commit('SET_ROLES', [])
+        commit('SET_JOBS', [])
+        commit('SET_URLS', {})
+        removeToken()
+        resolve()
       })
     },
 
