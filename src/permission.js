@@ -52,7 +52,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
-      var urls = await store.dispatch('GetUrls') // 获取api等URL配置
+
       if (!store.getters.account) { // 一般页面刷新后 store 里储存数据会没有，需要重新获取
         var info = await store.dispatch('GetUserInfo')
       }

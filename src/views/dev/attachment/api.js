@@ -9,7 +9,7 @@ export function getApi(){
 
 export function getPath(){
   //return 'http://127.0.0.1:7001/public/'
-  return store.getters.urls.attachment_lib_path
+  return process.env.ATTACHMENT_PATH;//store.getters.urls.attachment_lib_path
 }
 
 export function post(url, data) {
