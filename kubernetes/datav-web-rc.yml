@@ -1,21 +1,21 @@
 apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: portal-web
+  name: datav-web
   labels:
-    name: portal-web
+    name: datav-web
 spec:
   replicas: 1
   selector:
-    name: portal-web
+    name: datav-web
   template:
     metadata:
       labels:
-        name: portal-web
+        name: datav-web
     spec:
       containers:
-      - name: portal-web
-        image: reg.icity-os.com/cityos/portal-web:1.0
+      - name: datav-web
+        image: reg.icity-os.com/cityos/datav-web:1.0
         imagePullPolicy: Always
         ports:
         - containerPort: 80

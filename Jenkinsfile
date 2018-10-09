@@ -2,4 +2,4 @@
 
 @Library('jenkins-pipeline-library') _
 
-nodeKubectl("http://git.cityos.com/cityos/portal_web.git", "portal-web", BUILD_ENV, ONLY_BUILD)
+nodeKubectl("http://git.cityos.com/smart-cityos/datav_web.git", "datav-web", BUILD_ENV, ONLY_BUILD)
