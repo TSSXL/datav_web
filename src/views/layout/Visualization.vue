@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}">
+  <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}" style="margin: 0 auto; width: 1300px;">
     <div class="header-wrapper">
       <headerbar></headerbar>
     </div>
@@ -34,7 +34,6 @@ export default {
       return this.$store.state.app.sidebar
     }
   },created() {
-    console.log("你好");
   }
 }
 </script>

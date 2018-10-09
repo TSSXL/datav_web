@@ -43,7 +43,6 @@ const menu = {
       }
 
       const menus = []
-      console.log("开始生成菜单");
       genMenus(menus, data)
       commit('SET_MENUS', menus)
       commit('SET_RESET', false)
