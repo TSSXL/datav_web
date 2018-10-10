@@ -84,7 +84,18 @@
       </el-form-item>
 
       <el-form-item label="选项">
-        <cm-json-editor v-model="option" style="font-size: 10px;"></cm-json-editor>
+        <AceEditor
+          :fontSize="14"
+          :showPrintMargin="true"
+          :showGutter="true"
+          :highlightActiveLine="true"
+          mode="javascript"
+          theme="monokai"
+          name="exp"
+          height="550px"
+          width="100%"
+          :editorProps="{$blockScrolling: true}"
+        />
       </el-form-item>
 
       <el-form-item label="active">
@@ -123,15 +134,19 @@
   import {getItem, editItem} from "./api";
   import { getTree as getCategories } from '@/views/sm/category/api'
   import errorTip from "@/components/Validate/errorTip";
-  import cmJsonEditor from '@/components/jsonEditor/cmJsonEditor'
   import {getApi, getPath} from '@/views/dev/attachment/api'
+  import { Ace as AceEditor} from 'vue2-brace-editor';
+  import ace from 'brace';
+  import 'brace/mode/javascript';
+  import 'brace/theme/monokai';
 
   export default {
-    components: {errorTip, cmJsonEditor},
+    components: {errorTip,AceEditor},
     data() {
       return {
         id: this.$route.params.id,
         typeOptions: [],
+        editor:null,
         component:
           {
             label: '',
@@ -145,7 +160,6 @@
             active: false,
             selected: false,
           },
-        option: '',
         iconUrl:[],
         filterMethod(query, item) {
           return item.label.indexOf(query) > -1;
@@ -189,8 +203,11 @@
       fetchData() {
         getItem(this.id).then(response => {
           this.component = response.data;
-          if(this.component.option != null)
-            this.option = JSON.stringify(this.component.option, null, 4);
+          if(this.component.option != null){
+            this.editor = ace.edit("exp");
+            this.editor.setValue(JSON.stringify(this.component.option, null, 2));
+          }
+
           this.iconUrl = JSON.parse(JSON.stringify(this.component.icon));
           this.iconUrl[0].url = this.api + this.iconUrl[0].url;
         })
@@ -201,6 +218,12 @@
             return
           }
           if (result) {
+            this.editor = ace.edit("exp");
+            if(this.editor.getValue() != ""){
+              this.component.option = JSON.parse(this.editor.getValue());
+            }else{
+              this.component.option = {};
+            }
             editItem(this.id, this.component).then(response => {
               this.$notify({
                 title: '成功',
@@ -216,15 +239,6 @@
       },
       onCancel() {
         this.$router.go(-1)
-      }
-    },
-    watch:{
-      'option': function(val){
-        try {
-          this.component.option = JSON.parse(val)
-        } catch(e) {
-          this.component.option = {};
-        }
       }
     },
     mounted() {
