@@ -192,7 +192,7 @@
           if(this.component.option != null)
             this.option = JSON.stringify(this.component.option, null, 4);
           this.iconUrl = JSON.parse(JSON.stringify(this.component.icon));
-          this.iconUrl[0].url = this.api + 'public' + this.iconUrl[0].url;
+          this.iconUrl[0].url = this.api + this.iconUrl[0].url;
         })
       },
       onSubmit() {

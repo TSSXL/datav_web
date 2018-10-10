@@ -4,7 +4,7 @@ import store from '@/store'
 
 export function getApi(){
   //return 'http://127.0.0.1:7001/'
-  return store.getters.urls.attachment_lib_api
+  return process.env.ATTACHMENT_PATH;
 }
 
 export function getPath(){

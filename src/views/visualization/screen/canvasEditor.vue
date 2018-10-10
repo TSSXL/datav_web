@@ -15,7 +15,7 @@
                 <el-scrollbar style="height: 400px;" tag="div">
                   <ul class="charts">
                     <li v-for="component in components.filter((c)=>c.type[0] == 'charts')" :key="component.name" @click="addComponent(component)">
-                      <img alt="" :src="api + 'public' + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
+                      <img alt="" :src="api + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
                       <div class="name">{{component.label}}</div>
                       <div class="checked"></div>
                     </li>
@@ -26,7 +26,7 @@
                 <template slot="label"><i class="fa fa-bar-chart" aria-hidden="true" title="柱形图"></i></template>
                 <ul class="charts">
                   <li v-for="component in components.filter((c)=>c.type.find((t)=>t == 'bar'))" :key="component.name" @click="addComponent(component)">
-                    <img alt="" :src="api + 'public' + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
+                    <img alt="" :src="api + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
                     <div class="name">{{component.label}}</div>
                     <div class="checked"></div>
                   </li>
@@ -36,7 +36,7 @@
                 <template slot="label"><i class="fa fa-line-chart" aria-hidden="true" title="折线图"></i></template>
                 <ul class="charts">
                   <li v-for="component in components.filter((c)=>c.type.find((t)=>t == 'line'))" :key="component.name" @click="addComponent(component)">
-                    <img alt="" :src="api + 'public' + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
+                    <img alt="" :src="api + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
                     <div class="name">{{component.label}}</div>
                     <div class="checked"></div>
                   </li>
@@ -46,7 +46,7 @@
                 <template slot="label"><i class="fa fa-pie-chart" aria-hidden="true" title="饼图"></i></template>
                 <ul class="charts">
                   <li v-for="component in components.filter((c)=>c.type.find((t)=>t == 'pie'))" :key="component.name" @click="addComponent(component)">
-                    <img alt="" :src="api + 'public' + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
+                    <img alt="" :src="api + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
                     <div class="name">{{component.label}}</div>
                     <div class="checked"></div>
                   </li>
@@ -56,7 +56,7 @@
                 <template slot="label"><i class="fa fa-snowflake-o" aria-hidden="true" title="散点图"></i></template>
                 <ul class="charts">
                   <li v-for="component in components.filter((c)=>c.type.find((t)=>t == 'scatter'))" :key="component.name" @click="addComponent(component)">
-                    <img alt="" :src="api + 'public' + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
+                    <img alt="" :src="api + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
                     <div class="name">{{component.label}}</div>
                     <div class="checked"></div>
                   </li>
@@ -66,7 +66,7 @@
                 <template slot="label"><i class="fa fa-gears" aria-hidden="true" title="其他"></i></template>
                 <ul class="charts">
                   <li v-for="component in components.filter((c)=>c.type.find((t)=>t == 'other'))" :key="component.name" @click="addComponent(component)">
-                    <img alt="" :src="api + 'public' + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
+                    <img alt="" :src="api + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
                     <div class="name">{{component.label}}</div>
                     <div class="checked"></div>
                   </li>
@@ -86,7 +86,7 @@
             v-model="popCmpVisible">
             <ul class="charts">
               <li v-for="component in components.filter((c)=>c.type[0] == 'cmp')" :key="component.name" @click="addComponent(component)">
-                <img alt="" :src="api + 'public' + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
+                <img alt="" :src="api + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
                 <div class="name">{{component.label}}</div>
                 <div class="checked"></div>
               </li>
@@ -104,7 +104,7 @@
             v-model="popMapVisible">
             <ul class="charts">
               <li v-for="component in components.filter((c)=>c.type[0] == 'map')" :key="component.name" @click="addComponent(component)">
-                <img alt="" :src="api + 'public' + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
+                <img alt="" :src="api + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
                 <div class="name">{{component.label}}</div>
                 <div class="checked"></div>
               </li>
@@ -122,7 +122,7 @@
             v-model="popTextVisible">
             <ul class="charts">
               <li v-for="component in components.filter((c)=>c.type[0] == 'words')" :key="component.name" @click="addComponent(component)">
-                <img alt="" :src="api + 'public' + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
+                <img alt="" :src="api + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
                 <div class="name">{{component.label}}</div>
                 <div class="checked"></div>
               </li>
@@ -140,7 +140,7 @@
             v-model="popOtherVisible">
             <ul class="charts">
               <li v-for="component in components.filter((c)=>c.type[0] == 'other')" :key="component.name" @click="addComponent(component)">
-                <img alt="" :src="api + 'public' + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
+                <img alt="" :src="api + component.icon[0].url" v-if="component.icon && component.icon.length > 0">
                 <div class="name">{{component.label}}</div>
                 <div class="checked"></div>
               </li>
@@ -194,7 +194,7 @@
           </el-table-column>
           <el-table-column prop="icon" width="50">
             <template slot-scope="scope">
-              <img alt="" :src="api + 'public' + scope.row.icon[0].url" style="width: 40px;">
+              <img alt="" :src="api + scope.row.icon[0].url" style="width: 40px;">
             </template>
           </el-table-column>
           <el-table-column prop="name">

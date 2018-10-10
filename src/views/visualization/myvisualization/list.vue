@@ -1,5 +1,6 @@
 <template>
-  <el-scrollbar class='page-component__scroll' tag="div">
+  <div>
+  <el-scrollbar class='page-component__scroll' tag="div" style="height: 100%;">
   <div>
     <div class="screen">
       <div class="new-wrap">
@@ -40,7 +41,15 @@
       </div>
     </div>
   </div>
+
   </el-scrollbar>
+  <div v-show="!listLoading" class="pagination-container">
+    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                   :current-page="paging.currentPage" :page-sizes="[10,20,30, 50]"
+                   :page-size="paging.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+    </el-pagination>
+  </div>
+  </div>
 </template>
 
 <script>
@@ -48,6 +57,7 @@
   import {getListCover, copyItem,removeItem} from '@/views/visualization/screen/api'
   import ElButton from "element-ui/packages/button/src/button";
   import {getPath} from '@/views/dev/attachment/api'
+  import { paging, queries, setSort,parseTime } from '@/utils'
 
   export default {
     components: {ElButton},
@@ -56,6 +66,7 @@
         list: null,
         listLoading: true,
         total: null,
+        paging: paging(),
         listQuery: {
           pageNo: 1,
           pageSize: 10,
@@ -78,7 +89,7 @@
         this.listLoading = true;
         this.objQuery = []
         this.objQuery.push({refApp: this.appid})
-        getListCover(this.listQuery, this.objQuery).then(response => {
+        getListCover(this.paging, this.objQuery).then(response => {
           this.list = response.data.content;
           this.total = response.data.totalElements;
           this.listLoading = false;
@@ -130,6 +141,14 @@
           })
           this.fetchData()
         })
+      },
+      handleSizeChange(val) {
+        this.paging.pageSize = val
+        this.fetchData()
+      },
+      handleCurrentChange(val) {
+        this.paging.currentPage = val
+        this.fetchData()
       }
     },
     created() {
