@@ -290,7 +290,7 @@
                 :fileList="screen.page.backgrounds"
                 :on-success="handleUploadiconSuccess"
                 :on-remove="handleUploadiconRemove">
-                <img v-if="screen.page.backgrounds.length>0" :src="screen.page.backgrounds[0].url" class="avatar">
+                <img v-if="screen.page.backgrounds.length>0" :src="api + 'public'+ screen.page.backgrounds[0].url" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
             </el-form-item>
@@ -586,7 +586,7 @@
         this.screen.page.backgrounds.splice(0, this.screen.page.backgrounds.length)
         for (let file of fileList) {
           if (file.response)
-            this.screen.page.backgrounds.unshift({name: file.name, url: file.response.data.results})
+            this.screen.page.backgrounds.unshift({name: file.name, url: file.response.data.res.url})
           else
             this.screen.page.backgrounds.unshift({name: file.name, url: file.url})
         }
@@ -663,7 +663,7 @@
 
         if(this.screen.page.backgrounds && this.screen.page.backgrounds.length > 0){
           //var bgimage = 'background-image: url(' + this.screen.page.backgrounds[0].url + '); '
-          var bgimage = 'background-image: url(/static/' + this.screen.page.backgrounds[0].name + '); '
+          var bgimage = 'background-image: url(' + this.api + 'public' + this.screen.page.backgrounds[0].url + '); '
           var bgfill = 'background-size: cover; '
           var css = ' background-position: center center; background-repeat: no-repeat; '
           if (this.screen.page.fill == 'x') {
