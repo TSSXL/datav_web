@@ -19,12 +19,12 @@ export const constantRouterMap = [
   { path: '/login', component: _import('login/index'), hidden: true },
   { path: '/reg', component: _import('reg/index'), hidden: true },
   { path: '/404', component: _import('404'), hidden: true },
-  {
+  /*{
     path: '/',
     component: Layout,
     hidden: true,
     children: [{ path: '/', name: '首页', component: _import('index') }]
-  },
+  },*/
   { path: '/error', redirect: '/404', hidden: true }
 ]
 
