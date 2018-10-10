@@ -1,5 +1,4 @@
-
-import fetch from '@/utils/fetch'
+import fetch from '@/views/dev/option/fetch'
 
 export function getList(listQuery, objQuery) {
   return fetch({

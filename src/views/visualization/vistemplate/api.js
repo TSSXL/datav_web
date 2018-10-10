@@ -1,5 +1,5 @@
 
-import fetch from '@/utils/fetch'
+import fetch from '@/views/visualization/vistemplate/fetch'
 
 export function getList(listQuery, objQuery) {
   return fetch({

@@ -9,11 +9,12 @@ export function getApi(){
 
 export function getPath(){
   //return 'http://127.0.0.1:7001/public/'
-  return process.env.ATTACHMENT_PATH;//store.getters.urls.attachment_lib_path
+  return process.env.ATTACHMENT_PATH+"public/";//store.getters.urls.attachment_lib_path
 }
 
 export function post(url, data) {
-  console.log(url);
+  console.log(getApi() + url);
+console.log("========");
   return fetchApi({
     url: getApi() + url,
     method: 'POST',
