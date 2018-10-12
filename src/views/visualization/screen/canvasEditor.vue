@@ -194,7 +194,7 @@
           </el-table-column>
           <el-table-column prop="icon" width="50">
             <template slot-scope="scope">
-              <img alt="" :src="api + scope.row.icon[0].url" style="width: 40px;">
+              <img alt="" :src="path + scope.row.icon[0].url" style="width: 40px;">
             </template>
           </el-table-column>
           <el-table-column prop="name">
@@ -290,7 +290,7 @@
                 :fileList="screen.page.backgrounds"
                 :on-success="handleUploadiconSuccess"
                 :on-remove="handleUploadiconRemove">
-                <img v-if="screen.page.backgrounds.length>0" :src="api + 'public'+ screen.page.backgrounds[0].url" class="avatar">
+                <img v-if="screen.page.backgrounds.length>0" :src="path + screen.page.backgrounds[0].url" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
             </el-form-item>
@@ -663,7 +663,7 @@
 
         if(this.screen.page.backgrounds && this.screen.page.backgrounds.length > 0){
           //var bgimage = 'background-image: url(' + this.screen.page.backgrounds[0].url + '); '
-          var bgimage = 'background-image: url(' + this.api + 'public' + this.screen.page.backgrounds[0].url + '); '
+          var bgimage = 'background-image: url(' + this.path + this.screen.page.backgrounds[0].url + '); '
           var bgfill = 'background-size: cover; '
           var css = ' background-position: center center; background-repeat: no-repeat; '
           if (this.screen.page.fill == 'x') {
