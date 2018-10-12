@@ -336,7 +336,6 @@
   import * as UUID from "uuid";
   import html2Canvas from 'html2canvas'
   import ElButton from "element-ui/packages/button/src/button";
-  import store from '@/store'
   import {getItem as getOptions} from '@/views/dev/option/api'
 
   export default {
