@@ -1,55 +1,55 @@
 <template>
-  <div>
-  <el-scrollbar class='page-component__scroll' tag="div" style="height: 100%;">
-  <div>
-    <div class="screen">
-      <div class="new-wrap">
-        <el-button type="text" class="screen_new_link" @click="create">+
-        </el-button>
-        <div><el-button type="text" @click="create">新建可视化</el-button></div>
-      </div>
-    </div>
-    <div class="screen" v-for="item in list">
-      <template v-if="item.page.coverImage">
-        <div class="image-wrap" @click="edit(item)" :style="'cursor:pointer; background-image: url('+ path + item.page.coverImage +'); background-size: cover'">
-          <div class="mask">
-            <el-button type="primary" @click="edit(item)" style="margin: 80px; margin-top: 60px;"> 设计  </el-button>
-          </div>
-        </div>
-      </template>
-      <template v-else>
-        <div class="image-wrap" @click="edit(item)" :style="'cursor:pointer; background-size: cover'">
-          <div class="mask">
-            <el-button type="primary" @click="edit(item)" style="margin: 80px; margin-top: 60px;"> 设计  </el-button>
-          </div>
-        </div>
-      </template>
-      <div class="screen-bottom-wrap">
-        <div class="screen_bottom">
-          <el-button type="text" @click="edit(item)">{{item.name}}</el-button>
-        </div>
-        <div class="screen-actions-box">
-          <div class="screenActions">
-            <ul class="">
-              <li><el-button type="text" size="mini" @click="copy(item)"><i class="fa fa-floppy-o"></i> <span>复制</span></el-button></li>
-              <li><el-button type="text" size="mini" @click="preview(item.id)"><i class="fa fa-photo"></i> <span>预览</span></el-button></li>
-              <li><el-button type="text" size="mini"><i class="fa fa-toggle-off"></i> <span>发布</span></el-button></li>
-              <li><el-button type="text" size="mini" @click="handleDelete(item)"><i class="fa fa-trash-o"></i> <span>删除</span></el-button></li>
-            </ul>
-          </div>
+<div>
+  <el-scrollbar class='page-component__scroll' tag="div" style="height: calc(100vh - 110px);margin-left: 8%">
+    <div>
+      <div class="screen">
+        <div class="new-wrap">
+          <el-button type="text" class="screen_new_link" @click="create">+
+          </el-button>
+          <div><el-button type="text" @click="create">新建可视化</el-button></div>
         </div>
       </div>
+      <div class="screen" v-for="item in list">
+        <template v-if="item.page.coverImage">
+          <div class="image-wrap" @click="edit(item)" :style="'cursor:pointer; background-image: url('+ path + item.page.coverImage +'); background-size: cover'">
+            <div class="mask">
+              <el-button type="primary" @click="edit(item)" style="margin: 80px; margin-top: 60px;"> 设计  </el-button>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="image-wrap" @click="edit(item)" :style="'cursor:pointer; background-size: cover'">
+            <div class="mask">
+              <el-button type="primary" @click="edit(item)" style="margin: 80px; margin-top: 60px;"> 设计  </el-button>
+            </div>
+          </div>
+        </template>
+        <div class="screen-bottom-wrap">
+          <div class="screen_bottom">
+            <el-button type="text" @click="edit(item)">{{item.name}}</el-button>
+          </div>
+          <div class="screen-actions-box">
+            <div class="screenActions">
+              <ul class="">
+                <li><el-button type="text" size="mini" @click="copy(item)"><i class="fa fa-floppy-o"></i> <span>复制</span></el-button></li>
+                <li><el-button type="text" size="mini" @click="preview(item.id)"><i class="fa fa-photo"></i> <span>预览</span></el-button></li>
+                <li><el-button type="text" size="mini"><i class="fa fa-toggle-off"></i> <span>发布</span></el-button></li>
+                <li><el-button type="text" size="mini" @click="handleDelete(item)"><i class="fa fa-trash-o"></i> <span>删除</span></el-button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-
+    <div style="clear: both;"></div>
   </el-scrollbar>
-  <div v-show="!listLoading" class="pagination-container">
+  <div v-show="!listLoading" class="pagination-container" style="text-align: right;margin-right: 10px;">
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                   :current-page="paging.currentPage" :page-sizes="[10,20,30, 50]"
+                   :current-page="paging.currentPage" :page-sizes="[14,28, 42,56]"
                    :page-size="paging.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
     </el-pagination>
   </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -67,12 +67,6 @@
         listLoading: true,
         total: null,
         paging: paging(),
-        listQuery: {
-          pageNo: 1,
-          pageSize: 10,
-          sort: "_id",
-          order: -1
-        },
         objQuery: []
       };
     },
@@ -152,6 +146,7 @@
       }
     },
     created() {
+      this.paging.pageSize = 14;
       this.fetchData()
     }
   }

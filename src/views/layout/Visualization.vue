@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}" style="margin: 0 auto; width: 1300px;">
+  <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}" style="margin: 0 auto; width: 100%">
     <div class="header-wrapper">
       <headerbar></headerbar>
     </div>

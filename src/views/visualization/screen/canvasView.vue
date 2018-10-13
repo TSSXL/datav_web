@@ -24,6 +24,7 @@
 <script>
   import errorTip from "@/components/Validate/errorTip";
   import VueDraggableResizable from 'vue-draggable-resizable'
+  import {getPath} from '@/views/dev/attachment/api'
   import componentContainer from '@/components/VisualizationSetting/componentContainer'
 
   export default {
@@ -76,6 +77,9 @@
       }
     },
     computed: {
+      path() {
+        return getPath()
+      },
       background: function () {
         var backgroundColor = 'background-color: #000;'
         if(this.screen.page.backgroundColor)
@@ -83,7 +87,7 @@
 
         if(this.screen.page.backgrounds && this.screen.page.backgrounds.length > 0){
           //var bgimage = 'background-image: url(' + this.screen.page.backgrounds[0].url + '); '
-          var bgimage = 'background-image: url(/static/' + this.screen.page.backgrounds[0].name + '); '
+          var bgimage = 'background-image: url(' + this.path + this.screen.page.backgrounds[0].url + '); '
           var bgfill = 'background-size: cover; '
           var css = ' background-position: center center; background-repeat: no-repeat; '
           if (this.screen.page.fill == 'x') {

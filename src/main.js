@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
-//import 'element-ui/lib/theme-chalk/index.css'
 import '../theme/index.css'
 import locale from 'element-ui/lib/locale/lang/zh-CN'
 import App from './App'
@@ -11,7 +10,6 @@ import '@/permission' // 权限
 import zh from 'vee-validate/dist/locale/zh_CN'
 import VeeValidate, { Validator } from 'vee-validate'
 import 'font-awesome/css/font-awesome.css'
-//import echarts from 'echarts'
 import VueClipboard from 'vue-clipboard2'
 
 Validator.addLocale(zh)

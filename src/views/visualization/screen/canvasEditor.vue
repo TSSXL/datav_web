@@ -336,7 +336,6 @@
   import * as UUID from "uuid";
   import html2Canvas from 'html2canvas'
   import ElButton from "element-ui/packages/button/src/button";
-  import store from '@/store'
   import {getItem as getOptions} from '@/views/dev/option/api'
 
   export default {
@@ -371,7 +370,7 @@
     },
     created() {
       var _this = this
-      this.$nextTick(function () {
+      this.$nextTick(() => {
         this.getComponents()
         this.resizeScreen()
       })
@@ -396,6 +395,8 @@
         });
       },
       resizeScreen() {
+        if(!this.$refs.screenContainer)
+          return;
         var width = this.$refs.screenContainer.clientWidth - 40
         var height = this.$refs.screenContainer.clientHeight  - 40
         //console.log(width)

@@ -128,7 +128,7 @@
 
 <script>
   import {addItem} from "./api";
-  import { getTree as getCategories } from '@/views/sm/category/api'
+  import typeOptions from "./typeOptions";
   import errorTip from "@/components/Validate/errorTip";
   import {getApi, getPath} from '@/views/dev/attachment/api'
   import { Ace as AceEditor} from 'vue2-brace-editor';
@@ -141,7 +141,7 @@
     data() {
       return {
         id: this.$route.params.id,
-        typeOptions: [],
+        typeOptions: typeOptions.data,
         editor:null,
         component:
           {
@@ -171,11 +171,6 @@
       }
     },
     methods: {
-      fetchtypeOptions() {
-        getCategories('viscomponent').then(res => {
-          this.typeOptions = res.data
-        })
-      },
       createFilter(queryString) {
         return (options) => {
           return (options.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
@@ -227,7 +222,6 @@
       }
     },
     created() {
-      this.fetchtypeOptions()
     }
   };
 </script>

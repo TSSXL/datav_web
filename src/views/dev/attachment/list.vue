@@ -152,19 +152,19 @@
 
       },
       handleUpload() {
-        this.$router.push({path: "/dev/attachment/uploadNew"})
+        this.$router.push({path: "/datav/attachment/uploadNew"})
       },
       handleUrl() {
-        this.$router.push({path: "/dev/attachment/url"})
+        this.$router.push({path: "/datav/attachment/url"})
       },
       handleUploads() {
-        this.$router.push({path: "/dev/attachment/uploads"})
+        this.$router.push({path: "/datav/attachment/uploads"})
       },
       handleUpdate(row) {
-        this.$router.push({path: "/dev/attachment/edit/" + row._id})
+        this.$router.push({path: "/datav/attachment/edit/" + row._id})
       },
       handleView(row) {
-        this.$router.push({path: "/dev/attachment/view/" + row._id})
+        this.$router.push({path: "/datav/attachment/view/" + row._id})
       },
       handleDelete(row) {
         this.$confirm('此操作将删除记录, 是否继续?', '提示', {

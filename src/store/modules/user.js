@@ -1,4 +1,3 @@
-import { loginEgg as login, logout, getUrls, userInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
@@ -39,63 +38,20 @@ const user = {
   actions: {
     // 登录
     Login({ commit }, userInfo) {
-      const username = userInfo.username.trim()
-      return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
-          if (response != null && response.data != null) {
-            const token = response.data.token
-            const name = response.data.userInfo.name
-            const account = response.data.userInfo.account
-            const jobs = response.data.userInfo.jobs
-            const roles = response.data.userInfo.roles
-            setToken(token)
-            commit('SET_TOKEN', token)
-            commit('SET_NAME', name)
-            commit('SET_ACCOUNT', account)
-            commit('SET_JOBS', jobs)
-            commit('SET_ROLES', roles)
-          }
-          resolve(response)
-        }).catch(error => {
-          console.log(error)
-          reject(error)
-        })
-      })
+      const username = userInfo.username.trim();
     },
 
     // 获取用户信息
     async GetUserInfo({ commit, state }) {
-      var res = await userInfo()
-      if (res.success) {
-        const info = res.data
-        commit('SET_NAME', info.name)
-        commit('SET_ACCOUNT', info.account)
-        commit('SET_JOBS', info.jobs)
-        commit('SET_ROLES', info.roles)
-      }
-      return res
     },
 
     // 获取配置的API等信息
     async GetUrls({ commit, state }) {
-      var res = await getUrls()
-      var urls = res.data
-      commit('SET_URLS', urls)
-      return urls
+
     },
 
     // 登出
     LogOut({ commit, state }) {
-      return new Promise((resolve, reject) => {
-        commit('SET_TOKEN', '')
-        commit('SET_NAME', '')
-        commit('SET_ACCOUNT', '')
-        commit('SET_ROLES', [])
-        commit('SET_JOBS', [])
-        commit('SET_URLS', {})
-        removeToken()
-        resolve()
-      })
     },
 
     // 前端 登出

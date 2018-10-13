@@ -5,7 +5,7 @@ const app = {
     sidebar: {
       opened: !+Cookies.get('sidebarStatus')
     },
-    appid: Cookies.get('appid'),
+    appid: Cookies.get('appid') || "5ab3754c8112781c2cc93541",
     size: Cookies.get('size')
   },
   mutations: {

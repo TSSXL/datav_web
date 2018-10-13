@@ -43,8 +43,20 @@
           <el-input v-model="option.data.data_api_id"  size="mini"></el-input>
         </el-form-item>
         <el-form-item label-width="0px" v-if="option.data.data_type == 'static_data'">
-          <el-scrollbar style="height: calc(100vh - 400px); ">
-            <cm-json-editor v-if="option.data.static_data" v-model="jsonString" style="font-size: 10px;"></cm-json-editor>
+          <el-scrollbar style="height: calc(100vh - 380px); ">
+            <AceEditor
+              :fontSize="14"
+              :showPrintMargin="true"
+              :showGutter="true"
+              :highlightActiveLine="true"
+              mode="javascript"
+              theme="monokai"
+              name="exp"
+              height="550px"
+              width="100%"
+              :editorProps="{$blockScrolling: true}"
+              :onChange="change"
+            />
           </el-scrollbar>
         </el-form-item>
       </el-collapse-item>
@@ -52,12 +64,15 @@
   </el-form>
 </template>
 <script>
-  import cmJsonEditor from '@/components/jsonEditor/cmJsonEditor'
+  import { Ace as AceEditor} from 'vue2-brace-editor';
+  import ace from 'brace';
+  import 'brace/mode/javascript';
+  import 'brace/theme/monokai';
 
   export default {
     name: 'dataSourceSetting',
     components: {
-      cmJsonEditor
+      AceEditor
     },
     props: {
       option: {type: Object},
@@ -65,14 +80,20 @@
     },
     data() {
       return {
-        dataActiveNames: ['interface'],
-        jsonString:JSON.stringify(this.option.data.static_data,null,4)
+        editor:null,
+        dataActiveNames: ['interface']
       }
     },
-    watch: {
-      jsonString(){
-        this.option.data.static_data = JSON.parse(this.jsonString);
+    methods: {
+      change(jsonString) {
+        this.option.data.static_data = JSON.parse(jsonString);
       }
+    },
+    mounted() {
+      this.$nextTick(() => {
+        this.editor = ace.edit("exp");
+        this.editor.setValue(JSON.stringify(this.option.data.static_data,null,2));
+      })
     }
   }
 </script>

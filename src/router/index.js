@@ -16,8 +16,6 @@ Vue.use(Router)
 * meta : `{ role: ['admin'] }`  will control the page role
 **/
 export const constantRouterMap = [
-  { path: '/login', component: _import('login/index'), hidden: true },
-  { path: '/reg', component: _import('reg/index'), hidden: true },
   { path: '/404', component: _import('404'), hidden: true },
   /*{
     path: '/',

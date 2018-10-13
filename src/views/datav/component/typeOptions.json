@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "value": "charts",
+      "label": "图表",
+      "children": [
+        {
+          "value": "bar",
+          "label": "柱状图"
+        },
+        {
+          "value": "line",
+          "label": "折线图"
+        },
+        {
+          "value": "scatter",
+          "label": "散点图"
+        },
+        {
+          "value": "pie",
+          "label": "饼图"
+        },
+        {
+          "value": "other",
+          "label": "其他"
+        }
+      ]
+    },
+    {
+      "value": "cmp",
+      "label": "组件"
+    },
+    {
+      "value": "map",
+      "label": "地图"
+    },
+    {
+      "value": "words",
+      "label": "文字"
+    },
+    {
+      "value": "other",
+      "label": "其他"
+    }
+  ]
+}

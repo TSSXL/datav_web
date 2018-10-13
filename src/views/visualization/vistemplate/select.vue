@@ -137,7 +137,7 @@
         this.onSubmit()
       },
       goBack(){
-        this.$router.push('/app/myvisualization/list')
+        this.$router.push('/visualization/myvisualization/list')
       },
       onSubmit() {
         this.$validator.validateAll().then(result => {

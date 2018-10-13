@@ -1,20 +1,15 @@
 import fetch from '@/utils/fetch'
 import fetchApi from '@/views/dev/attachment/fetchApi'
-import store from '@/store'
 
 export function getApi(){
-  //return 'http://127.0.0.1:7001/'
   return process.env.ATTACHMENT_PATH;
 }
 
 export function getPath(){
-  //return 'http://127.0.0.1:7001/public/'
-  return process.env.ATTACHMENT_PATH+"public/";//store.getters.urls.attachment_lib_path
+  return process.env.ATTACHMENT_PATH+"public/";
 }
 
 export function post(url, data) {
-  console.log(getApi() + url);
-console.log("========");
   return fetchApi({
     url: getApi() + url,
     method: 'POST',

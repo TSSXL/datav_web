@@ -42,17 +42,13 @@
         return getPath()
       },
       bImg(){
-          console.log(this.option.data);
        return this.path+this.option.data.static_data[0].value;
       }
-
-
     },
     created() {
       this.$nextTick(() => {
         this.size = this.getSize();
       });
-
     },
     watch: {
       option: {
