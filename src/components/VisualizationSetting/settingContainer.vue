@@ -70,6 +70,15 @@
   import airAqiSetting from '@/components/VisualizationSetting/compsSetting/airAqiSetting'
   import vImgLinkSetting from '@/components/VisualizationSetting/vChartOtherSetting/vImgLinkSetting'
   import weatherSetting from '@/components/VisualizationSetting/compsSetting/weatherSetting'
+  import tabSetting from '@/components/VisualizationSetting/compsSetting/tabSetting'
+  import airTargetSetting from '@/components/VisualizationSetting/compsSetting/airTargetSetting'
+  import airStationMapSetting from '@/components/VisualizationSetting/compsSetting/airStationMapSetting'
+  import airStationInfoSetting from '@/components/VisualizationSetting/compsSetting/airStationInfoSetting'
+  import baseCssLineSetting from '@/components/VisualizationSetting/wordsSetting/baseCssLineSetting'
+  import hbServerStatusSetting from '@/components/VisualizationSetting/compsSetting/hbServerStatusSetting'
+  import airJsRollListSetting from '@/components/VisualizationSetting/compsSetting/airJsRollListSetting'
+  import pollutionJsCompanySetting from '@/components/VisualizationSetting/compsSetting/pollutionJsCompanySetting'
+  import hbCompanyMapSetting from '@/components/VisualizationSetting/vMapSetting/hbCompanyMapSetting'
 
   export default {
     name: 'settingContainer',
@@ -81,7 +90,8 @@
       pieMultiPercentSetting,digitalLabelSetting,alarmMultiPercentSetting,vTimerSetting,trafficMapSetting,
       mlPieBasicSetting,mlGCloudSetting,mainImgSetting,mlBubbleSetting,numberTitleFlopSetting,populationStructureSetting,
       mlBarHoriGroupSetting,gaugePieSetting,dashboardPiePercentSetting,circleStateSetting,titleValuesSetting,
-      airRollListSetting,airStationListSetting,airAqiSetting,vImgLinkSetting,weatherSetting
+      airRollListSetting,airStationListSetting,airAqiSetting,vImgLinkSetting,weatherSetting,tabSetting,airTargetSetting,airStationMapSetting,
+      airStationInfoSetting,baseCssLineSetting,hbServerStatusSetting,airJsRollListSetting,pollutionJsCompanySetting,hbCompanyMapSetting
     },
     props: {
       component: { type: Object },
@@ -148,7 +158,16 @@
           "air-Station-List":"air-Station-List-Setting",
           "air-AQI":"air-Aqi-Setting",
           "v-Img-Link":"v-Img-Link-Setting",
-          "weather":"weatherSetting"
+          "weather":"weatherSetting",
+          "tab":"tabSetting",
+          "air-Target":"air-Target-Setting",
+          "air-Station-Map":"air-Station-Map-Setting",
+          "air-Station-Info":"air-Station-Info-Setting",
+          "base-Css-Line":"base-Css-Line-Setting",
+          "hb-Server-Status":"hb-Server-Status-Setting",
+          "air-Js-Roll-List":"air-Js-Roll-List-Setting",
+          "pollution-Js-Company":"pollution-Js-Company-Setting",
+          "hb-Company-Map":"hb-Company-Map-Setting"
         }
       }
     },

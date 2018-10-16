@@ -28,7 +28,7 @@
         chart.style.width = (obj.clientWidth) + 'px';
         chart.style.height = (obj.clientHeight) + 'px';
         this.charts.resize();
-      }
+      },
     },
     watch: {
       option: {
@@ -40,8 +40,13 @@
     },
     mounted() {
       this.$nextTick(() => {
-        this.draw()
+        this.draw();
+
       })
+
+      if(this.option.style.clock!=null && this.option.style.clock!=""){
+        setInterval(this.draw, this.option.style.clock);
+      }
     }
   }
 </script>

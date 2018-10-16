@@ -3,9 +3,10 @@
     <div :id="option.cmpId" :style="`width: ${size.width}px; height: ${size.height}px;`">
       <!--<el-button @click="showStation" style="display: block;float:right;"  v-if="show==false">展开站点列表</el-button>-->
       <!--<el-button @click="hideStation" style="display: block;float:right;" v-if="show">收起站点列表</el-button>-->
-      <img src="/static/downButton.png" @click="showStation" style="width: 15%;float: right;cursor:pointer;" v-if="show==false">
-      <img src="/static/downButton.png" @click="hideStation" style="width: 15%;float: right;-webkit-transform:rotate(180deg);cursor:pointer;" v-if="show">
+      <i class="fa fa-angle-double-down fa-3x" @click="showStation" style="display:block;margin-bottom:11px;width: 15%;float: right;cursor:pointer;" v-if="show==false"></i>
+      <i class="fa fa-angle-double-up fa-3x" @click="hideStation" style="display:block;margin-bottom:11px;width: 15%;float: right;cursor:pointer;" v-if="show"></i>
       <div v-if="show" :style="`width: ${size.width}px;`">
+
         <img src="/static/rowArrow.png" @click="getUp()" v-if="startNum!=0" :style="`cursor:pointer;position: absolute;-webkit-transform:rotate(180deg);${option.style.upArrowStyle};`">
         <img src="/static/rowArrow.png" @click="getDown()" v-if="showDown" :style="`cursor:pointer;position: absolute;${option.style.downArrowStyle};`">
         <table :style="option.style.tableStyle">
@@ -13,8 +14,8 @@
           <!--<th>站点名称</th>-->
           <!--</thead>-->
           <tbody  >
-              <tr v-for="(item,index) in list" :key="index" :style="`background-color:${item.itemBackground};${option.style.trStyle}`">
-                    <td>{{item.station}}</td>
+              <tr v-for="(item,index) in list" :key="index" :style="`${option.style.trStyle}`">
+                <td style="cursor: pointer" @click="changeId(item)"><span :style="`left: ${option.style.markLeft}px;border-radius: 10px;display: block;position: absolute;background-color:${item.color};color:${item.color}`">1</span>{{item.PositionName}}</td>
                   </tr>
 
 
@@ -27,6 +28,7 @@
 <script>
   import {getPath} from '@/views/dev/attachment/api'
   import vueSeamlessScroll from 'vue-seamless-scroll'
+  import {postResultByApi} from "../api"
 
 
 
@@ -46,6 +48,7 @@
         listLoading: true,
         show:false,
         startNum:0,
+        showSize:5,
         showDown:false
       }
     },
@@ -64,24 +67,55 @@
       hideStation(){
           this.show=false
       },
-      query(){
+    async  query(){
 
-          this.list=this.option.data.static_data.slice(this.startNum,this.startNum+10);
+          if(this.option.data.data_type=='API'){
+            let url=this.option.data.data_api
+            let param=this.option.data.data_api_param
+            let data= await postResultByApi(url,param).then(response=>{
 
-          if((this.startNum+10)>=this.option.data.static_data.length){
-            this.showDown=false;
-          }else{
-            this.showDown=true;
+              return response.data;
+            }).catch(e => {
+              this.$message({
+                type: 'error',
+                message: this.option.data.data_api+"接口调用报错"
+              });
+            });
+
+            this.option.data.static_data=data;
+            this.list=data.slice(this.startNum,this.startNum+this.showSize);
+          }else {
+            this.list=this.option.data.static_data.slice(this.startNum,this.startNum+this.showSize);
           }
+
+
+      if((this.startNum+this.showSize)>=this.option.data.static_data.length){
+        this.showDown=false;
+      }else{
+        this.showDown=true;
+      }
           this.listLoading=false;
       },
       getUp(){
           this.startNum--;
-        this.query();
+        this.list=this.option.data.static_data.slice(this.startNum,this.startNum+this.showSize);
+        if((this.startNum+this.showSize)>=this.option.data.static_data.length){
+          this.showDown=false;
+        }else{
+          this.showDown=true;
+        }
       },
       getDown(){
         this.startNum++;
-        this.query();
+        this.list=this.option.data.static_data.slice(this.startNum,this.startNum+this.showSize);
+        if((this.startNum+this.showSize)>=this.option.data.static_data.length){
+          this.showDown=false;
+        }else{
+          this.showDown=true;
+        }
+      },
+      changeId(item){
+        this.$emit('ievent',{"id":item.StationID});
       }
 
 
@@ -99,12 +133,14 @@
         this.size = this.getSize();
       });
     this.query();
+      if(this.option.style.clock!=null && this.option.style.clock!=""){
+        setInterval(this.query, this.option.style.clock);
+      }
     },
     watch: {
       option: {
         handler(curVal, oldVal) {
           this.size = this.getSize();
-          this.query();
         },
         deep: true
       }
@@ -118,11 +154,9 @@
 
   tr{
     border:1px solid #ffffff;
-    border-radius: 25px;
   }
   td{
     border:1px solid #ffffff;
-    border-radius: 25px;
   }
 
   table{

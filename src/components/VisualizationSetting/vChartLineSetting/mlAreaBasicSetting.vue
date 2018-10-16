@@ -217,6 +217,13 @@
             </el-form-item>
           </el-collapse-item>
           <pos-size-setting :cStyle="optionStyle"></pos-size-setting>
+          <el-collapse-item title="定时" name="time">
+            <el-form-item label="定时间隔">
+              <el-input-number v-model="optionStyle.clock"></el-input-number>
+            </el-form-item>
+
+          </el-collapse-item>
+
           <el-button @click="optionDialogVisible=true">显示json</el-button>
         </el-collapse>
       </el-form>
@@ -280,10 +287,19 @@
     watch: {
       'option': function(val){
         try {
-          this.component.option = JSON.parse(val)
+          this.component.option = JSON.parse(val);
+          this.optionStyle=this.component.option.style;
         } catch(e) {
           this.component.option = {};
         }
+      },
+      'optionStyle':{
+        handler(curVal, oldVal) {
+          this.component.option.style=curVal;
+          this.option=JSON.stringify(this.component.option, null, 4);
+        },
+        deep: true
+
       }
     },
     created() {

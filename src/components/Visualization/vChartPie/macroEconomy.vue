@@ -10,6 +10,7 @@
 </template>
 <script>
   import echarts from 'echarts'
+  import {getResultByApi,postResultByApi} from "../api"
 
   export default {
     name: 'macroEconomy',
@@ -26,7 +27,27 @@
       }
     },
     methods: {
-      getChartOption(option){
+      async  getChartOption(option){
+        if(option.data.data_type=='API'){
+          let url=option.data.data_api
+
+          let data=await  postResultByApi(url,option.data.data_api_json).then(async response=>{
+            return response.data;
+          }).catch((e) => {
+            this.$message({
+              type: 'error',
+              message: option.data.data_api+"接口调用报错"
+            });
+          });
+          option.data.static_data= data;
+          return this.returnChartOption(option);
+
+        }else{
+          return this.returnChartOption(option);
+        }
+      },
+
+      returnChartOption(option){
         let chartOption = {};
         chartOption.animation = option.animation;
         chartOption.textStyle = option.style.textStyle;
@@ -36,34 +57,17 @@
         chartOption.color = option.style.color;
         chartOption.title.text = option.data.static_data.text;
         chartOption.title.subtext = option.data.static_data.val;
-        if(option.newData!=null && option.newData.id!=null){
-          if(chartOption.title.text=='SO2折算浓度'){
-            chartOption.title.subtext=12
-          }else if(chartOption.title.text=='烟尘折算浓度'){
-            chartOption.title.subtext=5
-          }else if(chartOption.title.text=='Nox折算浓度'){
-            chartOption.title.subtext=30
-          }else if(chartOption.title.text=='烟气流量'){
-            chartOption.title.subtext=184283.1192
-          }else if(chartOption.title.text=='烟气流量'){
-            chartOption.title.subtext=184283.1192
-          }else if(chartOption.title.text=='PH值'){
-            chartOption.title.subtext=7
-          }else if(chartOption.title.text=='化学需氧量'){
-            chartOption.title.subtext=70
-          }else if(chartOption.title.text=='废水流量'){
-            chartOption.title.subtext=5.632
-          }
 
-        }
         return chartOption;
       },
-      draw(){
+     async draw(){
         let chart = this.$refs.chart;
         let v = document.getElementById(this.option.cmpId);
         let obj = v.parentNode.parentNode.parentNode;
         this.charts = echarts.init(chart);
-        this.charts.setOption(this.getChartOption(JSON.parse(JSON.stringify(this.option))));
+        let op=await this.getChartOption(JSON.parse(JSON.stringify(this.option)));
+
+        this.charts.setOption(op);
         this.size.width = obj.clientWidth;
         this.size.height = obj.clientHeight;
         chart.style.width =`${this.size.width}px`;

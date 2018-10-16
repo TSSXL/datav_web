@@ -27,7 +27,7 @@
   import cmJsonEditor from '@/components/jsonEditor/cmJsonEditor'
 
   export default {
-    name: 'airAqiSetting',
+    name: 'airStationMapSetting',
     components: {
       BaseSetting,
       posSizeSetting,
@@ -64,19 +64,10 @@
     watch: {
       'option': function(val){
         try {
-          this.component.option = JSON.parse(val);
-          this.optionStyle=this.component.option.style;
+          this.component.option = JSON.parse(val)
         } catch(e) {
           this.component.option = {};
         }
-      },
-      'optionStyle':{
-        handler(curVal, oldVal) {
-          this.component.option.style=curVal;
-          this.option=JSON.stringify(this.component.option, null, 4);
-        },
-        deep: true
-
       }
     },
     created() {

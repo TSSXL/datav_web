@@ -5,7 +5,7 @@
 </template>
 <script>
   import vChartBase from "../vChartBase";
-  import {getResultByApi} from "../api"
+  import {getResultByApi,postResultByApi} from "../api"
 
   export default {
     name: 'mlAreaBasic',
@@ -16,11 +16,10 @@
             let url=option.data.data_api
           if(option.newData!=null && option.newData.id!=null){
 
-           url=url+"/"+option.newData.id;
-          }else{
-            url=url+"/"+option.data.data_api_id;
+            option.data.data_api_json.id=option.newData.id;
           }
-       let data= await getResultByApi(url).then(response=>{
+
+       let data= await postResultByApi(url,option.data.data_api_json).then(response=>{
           return response.data;
           }).catch((e) => {
           this.$message({

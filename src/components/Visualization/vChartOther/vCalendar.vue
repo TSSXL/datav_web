@@ -1,6 +1,6 @@
 <template>
   <div class="charts">
-    <i class="fa fa-angle-double-right fa-3x"  style="z-index:999;position:absolute;top: 50%;right: 1px" @click="nowMonth" v-if="nowData!='2018-08'" circle></i>
+    <i class="fa fa-angle-double-right fa-3x"  style="z-index:999;position:absolute;top: 50%;right: 1px" @click="nextMonth" v-if="nowData!=today" circle></i>
     <i class="fa fa-angle-double-left fa-3x"  style="position:absolute;z-index:999;top: 50%;left: 1px" @click="lastMonth" circle></i>
     <span style="float:right;font-size: 25px;margin-top:14px">{{splitData[0]}}</span>
     <span style="float:right;font-size: 40px">{{splitData[1]}}/</span>
@@ -14,30 +14,41 @@
   import vChartBase from "../vChartBase";
   import echarts from 'echarts'
   import {postResultByApi} from "../api"
+  import {getNowYear,formatDate,getPreMonth,getNextMonth} from '@/utils/index'
 
   export default {
     name: 'v-calendar',
     extends:vChartBase,
     data() {
       return {
-        nowData:"2018-08",
-        splitData:['2018','08']
+        today:formatDate(new Date(),'yyyy-MM'),
+        nowData:"",
+        splitData:[]
       }
     },
     methods: {
     async  getChartOption(option){
+        //初始化当前日期
+        if(this.nowData==""){
+          var now = new Date(); //当前日期
+          var nowMonth = now.getMonth()+1; //当前月
+          var nowYear = getNowYear(); //当前年
+          this.nowData=formatDate(nowYear+"-"+nowMonth,'yyyy-MM');
+          this.option.style.calendar[0].range=this.nowData
+        }
+
+
+
       if(option.data.data_type=='API'){
         let url=option.data.data_api
-        let range=this.option.style.calendar[0].range
-        if(option.newData!=null && option.newData.id!=null){
+        let range=this.nowData;
 
-          url=url+"/"+option.newData.id;
-        }else{
-          url=url+"/"+option.data.data_api_id;
-        }
-        let data= await postResultByApi(url,range).then(response=>{
+        let param=option.data.data_api_param;
+        param["range"]=range;
+
+        let data= await postResultByApi(url,param).then(response=>{
           return response.data;
-        }).catch((e) => {
+        }).catch(e => {
           this.$message({
             type: 'error',
             message: option.data.data_api+"接口调用报错"
@@ -102,13 +113,15 @@
         return chartOption;
       },
 
-      nowMonth(){
-          this.nowData='2018-08'
-        this.option.style.calendar[0].range="2018-08"
+      nextMonth(){
+        let nextData=getNextMonth(this.nowData+"-01");
+        this.nowData=formatDate(nextData,'yyyy-MM');
+        this.option.style.calendar[0].range=this.nowData
       },
       lastMonth(){
-        this.nowData='2018-07'
-        this.option.style.calendar[0].range="2018-07"
+        let lastData=getPreMonth(this.nowData+"-01");
+        this.nowData=formatDate(lastData,'yyyy-MM');
+        this.option.style.calendar[0].range=this.nowData
 
       }
     },
@@ -119,6 +132,7 @@
         },
         deep: true
       }
-    }
+    },
+
   }
 </script>

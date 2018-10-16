@@ -101,10 +101,19 @@
     watch: {
       'option': function(val){
         try {
-          this.component.option = JSON.parse(val)
+          this.component.option = JSON.parse(val);
+          this.optionStyle=this.component.option.style;
         } catch(e) {
           this.component.option = {};
         }
+      },
+      'optionStyle':{
+        handler(curVal, oldVal) {
+          this.component.option.style=curVal;
+          this.option=JSON.stringify(this.component.option, null, 4);
+        },
+        deep: true
+
       }
     },
     created() {

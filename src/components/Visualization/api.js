@@ -1,5 +1,5 @@
 
-import fetch from '@/utils/fetch'
+import fetch from '@/components/Visualization/fetch'
 
 export function getResultByApi(url) {
   return fetch({

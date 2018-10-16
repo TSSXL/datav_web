@@ -2,7 +2,8 @@
   <section>
     <div :id="option.cmpId" :style="`width: ${size.width}px; height: ${size.height}px;`">
 <div >
-  <ul class="item" :style="`line-height:${option.style.ulLineHeight}px;font-size:${option.style.fontSize}px;color:${option.style.color};width: ${size.width}px; height: ${size.height}px;background-color:${option.style.backgroundColor}`">
+  <ul class="item" @mouseover="hoverList" @mouseout="outList"
+      :style="`line-height:${option.style.ulLineHeight}px;font-size:${option.style.fontSize}px;color:${option.style.color};width: ${size.width}px; height: ${size.height}px;background-color:${option.style.backgroundColor}`">
     <template v-if="option.style.isFs==false">
       <li>
         <span style="width: 40%;">污染源排口</span>
@@ -12,22 +13,15 @@
         <span style="width: 15%;">烟气流量(M3/h)</span>
         <span style="width: 15%;">监测时间</span>
       </li>
-      <vue-seamless-scroll :data="list.gasList" :class-option="classOption"
-                           @copy-data="list.gasList = list.gasList.concat(list.gasList)"
-                           class="warp"
-                           :style="`width: ${size.width}px; height: ${size.height}px;`"
-      >
+      <li v-for="item in lists.gasList" style="text-align: right">
+        <span style="width: 40%;text-align: left" :title="`${item.qymc}`">&nbsp;&nbsp;{{item.qymc}}</span>
+        <span style="width: 10%;">{{item.so2zs}}</span>
+        <span style="width: 10%;">{{item.yczs}}</span>
+        <span style="width: 10%;">{{item.noxzs}}</span>
+        <span style="width: 15%;">{{item.yqll}}</span>
+        <span style="width: 15%;">{{item.jcsj}}时&nbsp;&nbsp;</span>
+      </li>
 
-        <li v-for="item in list.gasList" style="text-align: right">
-          <span style="width: 40%;">{{item.qymc}}</span>
-          <span style="width: 10%;">{{item.so2zs}}</span>
-          <span style="width: 10%;">{{item.yczs}}</span>
-          <span style="width: 10%;">{{item.noxzs}}</span>
-          <span style="width: 15%;">{{item.yqll}}</span>
-          <span style="width: 15%;">{{item.jcsj}}时&nbsp;&nbsp;</span>
-        </li>
-
-      </vue-seamless-scroll>
     </template>
     <template v-else>
       <li>
@@ -37,21 +31,14 @@
         <span style="width: 15%;">废水流量(m3/h)</span>
         <span style="width: 20%;">监测时间</span>
       </li>
-      <vue-seamless-scroll :data="list.effluentList" :class-option="classOption"
-                           @copy-data="list.effluentList = list.effluentList.concat(list.effluentList)"
-                           class="warp"
-                           :style="`width: ${size.width}px; height: ${size.height}px;`"
-      >
+      <li v-for="item in lists.effluentList" style="text-align: right">
+        <span style="width: 40%;text-align: left" :title="`${item.qymc}`">&nbsp;&nbsp;{{item.qymc}}</span>
+        <span style="width: 10%;">{{item.ph}}</span>
+        <span style="width: 15%;">{{item.hxxyl}}</span>
+        <span style="width: 15%;">{{item.fsll}}</span>
+        <span style="width: 20%;">{{item.jcsj}}时&nbsp;&nbsp;</span>
+      </li>
 
-        <li v-for="item in list.effluentList" style="text-align: right">
-          <span style="width: 40%;">{{item.qymc}}</span>
-          <span style="width: 10%;">{{item.ph}}</span>
-          <span style="width: 15%;">{{item.hxxyl}}</span>
-          <span style="width: 15%;">{{item.fsll}}</span>
-          <span style="width: 20%;">{{item.jcsj}}时&nbsp;&nbsp;</span>
-        </li>
-
-      </vue-seamless-scroll>
     </template>
 
 
@@ -81,11 +68,19 @@
           width:400,
           height:200
         },
+        lists:{
+          gasList:[],
+          effluentList:[]
+
+        },
         list:{
           gasList:[],
           effluentList:[]
 
-        }
+        },
+        step:5,
+        stepTime:3000,
+        interval:null
       }
     },
     methods: {
@@ -103,13 +98,11 @@
           let param=this.option.data.data_api_param
 
           postResultByApi(url,param).then(response=>{
-              console.log(response.data);
               if(this.option.style.isFs){
                 this.list.effluentList=response.data
               }else{
                 this.list.gasList=response.data
               }
-              console.log(this.list);
           }).catch(e => {
             this.$message({
               type: 'error',
@@ -121,7 +114,56 @@
         }else {
           this.list=this.option.data.static_data;
         }
+        if(this.option.style.step!=null){
+          this.step=this.option.style.step;
+        }
+        if(this.option.style.stepTime!=null){
+          this.stepTime=this.option.style.stepTime;
+        }
+        this.scroll();
+      },
+      //事件滚动效果
+      scroll(){
+          if(this.option.style.isFs){
+            this.lists.effluentList=[];
+            if(this.list.effluentList.length>=this.step){
+              for(let i=0;i<this.step;i++){
+                this.list.effluentList.push(this.list.effluentList[i]);
+                this.list.effluentList.shift();
+              }
 
+            }
+            for(let i=0;i<this.list.effluentList.length;i++) {
+              if (i >= this.step) {
+                break;
+              }
+              this.lists.effluentList.push(this.list.effluentList[i]);
+            }
+          }else{
+            this.lists.gasList=[];
+            if(this.list.gasList.length>=this.step){
+              for(let i=0;i<this.step;i++){
+                this.list.gasList.push(this.list.gasList[i]);
+                this.list.gasList.shift();
+              }
+
+            }
+            for(let i=0;i<this.list.gasList.length;i++) {
+              if (i >= this.step) {
+                break;
+              }
+              this.lists.gasList.push(this.list.gasList[i]);
+            }
+          }
+
+
+      },
+      hoverList(){
+        clearInterval(this.interval);//停止
+
+      },
+      outList(){
+        this.interval=setInterval(this.scroll, this.stepTime); //重新启动即可
       }
 
 
@@ -152,14 +194,20 @@
       option: {
         handler(curVal, oldVal) {
           this.size = this.getSize();
+          if(this.option.style.step!=null){
+            this.step=this.option.style.step;
+          }
+          if(this.option.style.stepTime!=null){
+            this.stepTime=this.option.style.stepTime;
+          }
+
         },
         deep: true
       }
     },
   mounted(){
-//    $('.dowebok').liMarquee({
-//      direction: 'up'
-//    });
+    this.interval=setInterval(this.scroll, this.stepTime);
+
 
   }
   }
@@ -180,5 +228,12 @@
   li {
     display: flex;
     justify-content: space-between;
+  }
+  li span{
+    overflow: hidden;
+
+    white-space: nowrap;
+
+  text-overflow: ellipsis
   }
 </style>

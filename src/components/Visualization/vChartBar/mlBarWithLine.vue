@@ -6,6 +6,7 @@
 <script>
   import echarts from 'echarts'
   import vChartBase from "../vChartBase";
+  import {getResultByApi,postResultByApi} from "../api"
 
   export default {
     name: 'mlBarWithLine',
@@ -19,18 +20,42 @@
       }
     },
     methods: {
-      getChartOption(option){
+
+      async  getChartOption(option){
+        if(option.data.data_type=='API'){
+          let url=option.data.data_api
+
+        let data=await  postResultByApi(url,option.data.data_api_json).then(async response=>{
+            return response.data;
+          }).catch((e) => {
+            this.$message({
+              type: 'error',
+              message: option.data.data_api+"接口调用报错"
+            });
+          });
+          option.data.static_data= data;
+          return this.returnChartOption(option);
+
+        }else{
+          return this.returnChartOption(option);
+        }
+      },
+
+      returnChartOption(option){
         let chartOption = {};
         chartOption.animation = option.animation;
         chartOption.textStyle = option.style.textStyle;
         chartOption.title = option.style.title;
         chartOption.grid = option.style.grid;
+        if(option.style.tooltip!=null){
+          chartOption.tooltip = option.style.tooltip;
+        }
         chartOption.legend = option.style.legend;
         chartOption.xAxis = option.style.xAxis;
         chartOption.yAxis = option.style.yAxis;
         chartOption.series = [];
         chartOption.xAxis[0].data = Array.from(new Set(option.data.static_data.map(item => item.x)));
-        if(this.option.style.seriesItems != null && this.option.style.seriesItems.length > 0){
+        if(option.style.seriesItems != null && option.style.seriesItems.length > 0){
           this.option.style.seriesItems.forEach((item)=>{
             let static_data = option.data.static_data.filter((d)=>d.s == item.value);
             if(static_data != null && static_data.length > 0){
@@ -65,13 +90,16 @@
             }
           });
         }
-        console.log(JSON.stringify( chartOption));
         return chartOption;
       },
-      draw(){
+
+     async draw(){
         let chart = this.$refs.chart;
         this.charts = echarts.init(chart,"walden");
-        this.charts.setOption(this.getChartOption(JSON.parse(JSON.stringify(this.option))));
+        let op=await this.getChartOption(JSON.parse(JSON.stringify(this.option)));
+
+        this.charts.setOption(op);
+
         let obj = chart.parentNode.parentNode.parentNode;
         chart.style.width = (obj.clientWidth) + 'px';
         chart.style.height = (obj.clientHeight) + 'px';

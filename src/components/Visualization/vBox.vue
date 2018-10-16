@@ -49,6 +49,9 @@
         }else{
             s+=`;background:none`
         }
+        if(this.option.style.borderImg!=null && this.option.style.borderImg!=""){
+            s+=`;border-image-source: url("${this.path}${this.option.style.borderImg.url}"); border-image-slice:${this.option.style.borderImg.borderImageSlice};`
+        }
         if(this.option.style.backgroundImg!=null){
             s+=`;background-image:url("${this.path}${this.option.style.backgroundImg}")`
         }

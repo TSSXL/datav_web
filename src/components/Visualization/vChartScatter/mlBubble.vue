@@ -5,12 +5,33 @@
 </template>
 <script>
   import vChartBase from "../vChartBase";
+  import {getResultByApi,postResultByApi} from "../api"
 
   export default {
     name: 'mlBubble',
     extends:vChartBase,
     methods: {
-      getChartOption(option){
+      async  getChartOption(option){
+        if(option.data.data_type=='API'){
+          let url=option.data.data_api
+
+          let data=await  postResultByApi(url,option.data.data_api_json).then(async response=>{
+            return response.data;
+          }).catch((e) => {
+            this.$message({
+              type: 'error',
+              message: option.data.data_api+"接口调用报错"
+            });
+          });
+          option.data.static_data= data;
+          return this.returnChartOption(option);
+
+        }else{
+          return this.returnChartOption(option);
+        }
+      },
+
+      returnChartOption(option){
         let chartOption = {};
         chartOption.animation = option.animation;
         chartOption.legend = option.style.legend;
@@ -20,7 +41,7 @@
         chartOption.series = option.style.series;
         chartOption.series.splice(0,chartOption.series.length);
         chartOption.legend.data.splice(0,chartOption.legend.data.length);
-        chartOption.xAxis.data = Array.from(new Set(this.option.data.static_data.map(item => item.x)));
+        chartOption.xAxis.data = Array.from(new Set(option.data.static_data.map(item => item.x)));
 
         if(option.style.seriesItems != null && option.style.seriesItems.length > 0){
           option.style.seriesItems.forEach((item,index)=>{

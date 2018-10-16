@@ -5,196 +5,33 @@
 </template>
 <script>
   import vChartBase from "../vChartBase";
+  import {getResultByApi,postResultByApi} from "../api"
   export default {
     name: 'mlLineBasic',
     extends:vChartBase,
     methods: {
-      getChartOption(option){
-        if(option.newData!=null && option.newData.id!=null){
-          let newMap=[
-            {
-              "x": "03时",
-              "y": 7,
-              "s": "1"
-            },
-            {
-              "x": "03时",
-              "y": 20,
-              "s": "2"
-            },
-            {
-              "x": "03时",
-              "y": 24,
-              "s": "3"
-            },
-            {
-              "x": "04时",
-              "y": 5.7,
-              "s": "1"
-            },
-            {
-              "x": "04时",
-              "y": 14.2,
-              "s": "2"
-            },
-            {
-              "x": "04时",
-              "y": 74,
-              "s": "3"
-            },
-            {
-              "x": "05时",
-              "y": 1.3,
-              "s": "1"
-            },
-            {
-              "x": "05时",
-              "y": 20.5,
-              "s": "2"
-            },
-            {
-              "x": "05时",
-              "y": 79,
-              "s": "3"
-            },
-            {
-              "x": "06时",
-              "y": 5,
-              "s": "1"
-            },
-            {
-              "x": "06时",
-              "y": 12.4,
-              "s": "2"
-            },
-            {
-              "x": "06时",
-              "y": 40,
-              "s": "3"
-            },
-            {
-              "x": "07时",
-              "y": 9.2,
-              "s": "1"
-            },
-            {
-              "x": "07时",
-              "y": 18,
-              "s": "2"
-            },
-            {
-              "x": "07时",
-              "y": 60,
-              "s": "3"
-            },
-            {
-              "x": "08时",
-              "y": 1.4,
-              "s": "1"
-            },
-            {
-              "x": "08时",
-              "y": 5.7,
-              "s": "2"
-            },
-            {
-              "x": "08时",
-              "y": 59,
-              "s": "3"
-            },
-            {
-              "x": "09时",
-              "y": 6.2,
-              "s": "1"
-            },
-            {
-              "x": "09时",
-              "y": 13,
-              "s": "2"
-            },
-            {
-              "x": "09时",
-              "y": 50,
-              "s": "3"
-            },
-            {
-              "x": "10时",
-              "y": 2.4,
-              "s": "1"
-            },
-            {
-              "x": "10时",
-              "y": 21,
-              "s": "2"
-            },
-            {
-              "x": "10时",
-              "y": 35,
-              "s": "3"
-            },
-            {
-              "x": "11时",
-              "y": 3.4,
-              "s": "1"
-            },
-            {
-              "x": "11时",
-              "y": 12.5,
-              "s": "2"
-            },
-            {
-              "x": "11时",
-              "y": 47,
-              "s": "3"
-            },
-            {
-              "x": "12时",
-              "y": 4,
-              "s": "1"
-            },
-            {
-              "x": "12时",
-              "y": 19,
-              "s": "2"
-            },
-            {
-              "x": "12时",
-              "y": 37,
-              "s": "3"
-            },
-            {
-              "x": "13时",
-              "y": 8.5,
-              "s": "1"
-            },
-            {
-              "x": "13时",
-              "y": 18,
-              "s": "2"
-            },
-            {
-              "x": "13时",
-              "y": 41,
-              "s": "3"
-            },
-            {
-              "x": "14时",
-              "y": 2.4,
-              "s": "1"
-            },
-            {
-              "x": "14时",
-              "y": 10,
-              "s": "2"
-            },
-            {
-              "x": "14时",
-              "y": 40,
-              "s": "3"
-            }
-          ]
-          option.data.static_data=newMap;
+      async  getChartOption(option){
+        if(option.data.data_type=='API'){
+          let url=option.data.data_api
+
+          let data=await  postResultByApi(url,option.data.data_api_json).then(async response=>{
+            return response.data;
+          }).catch((e) => {
+            this.$message({
+              type: 'error',
+              message: option.data.data_api+"接口调用报错"
+            });
+          });
+          option.data.static_data= data;
+          return this.returnChartOption(option);
+
+        }else{
+          return this.returnChartOption(option);
         }
+      },
+
+      returnChartOption(option){
+
         let chartOption = {};
         chartOption.animation = option.animation;
         chartOption.textStyle = option.style.textStyle;
@@ -205,7 +42,6 @@
         chartOption.yAxis = option.style.yAxis;
         chartOption.series = option.style.series;
 
-        console.log(chartOption.legend.data);
         if(option.style.visualMap!=null){
           chartOption.visualMap=option.style.visualMap
         }

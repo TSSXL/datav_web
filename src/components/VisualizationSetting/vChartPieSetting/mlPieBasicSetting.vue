@@ -171,7 +171,13 @@
           </el-collapse-item>
           <pos-size-setting :cStyle="optionStyle"></pos-size-setting>
         </el-collapse>
+        <el-button @click="optionDialogVisible=true">显示json</el-button>
       </el-form>
+      <el-dialog
+        title="JSON"
+        :visible.sync="optionDialogVisible">
+        <cm-json-editor v-model="option" style="font-size: 10px;" @close="optionDialogVisible=false"></cm-json-editor>
+      </el-dialog>
     </template>
     <template slot="data">
       <data-source-setting :option="component.option" :setting="setting"></data-source-setting>
@@ -185,7 +191,7 @@
   import {getApi, getPath,getAll} from '@/views/dev/attachment/api';
   import iconSelect from '@/components/Control/iconSelect';
   import dataSourceSetting from "../dataSourceSetting";
-
+  import cmJsonEditor from '@/components/jsonEditor/cmJsonEditor'
   export default {
     name: 'mlPieBasicSetting',
     components: {
@@ -193,7 +199,8 @@
       posSizeSetting,
       dataSourceSetting,
       iconSelect,
-      errorTip
+      errorTip,
+      cmJsonEditor
     },
     props: {
       component: {type: Object},
@@ -203,6 +210,8 @@
       return {
         activeNames: ['full'],
         optionStyle:{},
+        option:"",
+        optionDialogVisible:false,
         staticData: '',
         dynamicData: '',
         exampleData: '',
@@ -228,10 +237,26 @@
       }
     },
     watch: {
+      'option': function(val){
+        try {
+          this.component.option = JSON.parse(val);
+          this.optionStyle=this.component.option.style;
+        } catch(e) {
+          this.component.option = {};
+        }
+      },
+      'optionStyle':{
+        handler(curVal, oldVal) {
+          this.component.option.style=curVal;
+          this.option=JSON.stringify(this.component.option, null, 4);
+        },
+        deep: true
 
+      }
     },
     created() {
       this.optionStyle = this.component.option.style;
+      this.option=JSON.stringify(this.component.option, null, 4);
     }
   }
 </script>

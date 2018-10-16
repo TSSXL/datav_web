@@ -1,13 +1,14 @@
 <template>
   <section :style="textStyle">
     <div v-for="(title,index) of titles" :key="index" :style="divStyle">
-      <span :style="style" @click="redirectRoute();">{{title.value}}</span>
+      <span v-if="option.style.showLeftIcon" :style="leftIconStyle[index]">1</span><span :style="style">{{title.value}}</span><span v-if="option.style.showRightIcon" :style="option.style.rightIconStyle[index]">1</span>
     </div>
 
   </section>
 </template>
 <script>
   import {getPath} from '@/views/dev/attachment/api'
+  import {postResultByApi} from "../api"
   export default {
     name: 'vTextTitle',
     components: {},
@@ -15,32 +16,66 @@
       option: {type: Object}
     },
     data() {
-      return {}
+      return {
+        titles:[],
+        leftIconStyle:[]
+
+      }
     },
     methods: {
-      redirectRoute(){
-        if(this.option.data.datamap.url.map !=""){
-          let url ="";
-          let pathNow = this.$route.path;
-          if(pathNow.substr(pathNow.indexOf("/",2)+1,8)=="preview1"){
-            url = this.option.data.datamap.url.map.replace("preview1","preview");
-          }else{
-            url = this.option.data.datamap.url.map.replace("preview","preview1");
-          }
-          window.open(url, '_self');
+      query(){
+        if(this.option.data.data_type=='API'){
+          let url=this.option.data.data_api
+          let param=this.option.data.data_api_json
+
+          postResultByApi(url,param).then(response=>{
+
+
+            this.titles= response.data;
+            this.queryStyle()
+
+          }).catch(e => {
+            this.$message({
+              type: 'error',
+              message: this.option.data.data_api+"接口调用报错"
+            });
+          });
+
+
+        }else{
+          this.titles= this.option.data.static_data;
+          this.queryStyle()
+        }
+
+      },
+      queryStyle(){
+        if(this.option.data.style_type=='API'){
+          let url=this.option.data.data_style_api
+          let param=this.option.data.data_style_api_json
+
+          postResultByApi(url,param).then(response=>{
+
+
+            this.leftIconStyle= response.data
+
+          }).catch(e => {
+            this.$message({
+              type: 'error',
+              message: this.option.data.data_style_api+"接口调用报错"
+            });
+          });
+
+
+        }else{
+          this.leftIconStyle= this.option.style.leftIconStyle
         }
       }
-
     },
     computed: {
       path() {
         return getPath()
       },
-      titles: function () {
-        var data = this.option.data.static_data
 
-          return data
-      },
       style: function(){
 
         let s =  'font-size: ' + this.option.style.text.fontSize + 'px; color: ' + this.option.style.text.color + '; font-family: ' + this.option.style.text.fontFamily + '; cursor: '+this.option.style.cursor+';';
@@ -67,11 +102,24 @@
         if(this.option.style.text.backgroundImg!=null){
           s+=`background-image:url("${this.path}${this.option.style.text.backgroundImg}")`
         }
-        console.log(s);
           return s;
-      }
+      },
+
     },
     created() {
+
+      this.query();
+      if(this.option.style.clock!=null && this.option.style.clock!=""){
+        setInterval(this.query, this.option.style.clock);
+      }
+    },
+    watch: {
+      option: {
+        handler(curVal, oldVal) {
+          this.query();
+        },
+        deep: true
+      }
     }
   }
 </script>

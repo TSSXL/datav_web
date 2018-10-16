@@ -66,7 +66,16 @@
   import airStationList from '@/components/Visualization/comps/airStationList';
   import airAQI from '@/components/Visualization/comps/airAQI';
   import vImgLink from '@/components/Visualization/vChartOther/vImgLink';
+  import airTarget from '@/components/Visualization/comps/airTarget';
+  import airStationMap from '@/components/Visualization/comps/airStationMap';
+  import airStationInfo from '@/components/Visualization/comps/airStationInfo';
+  import baseCssLine from '@/components/Visualization/words/baseCssLine';
   import weather from '@/components/Visualization/comps/weather';
+  import tab from '@/components/Visualization/comps/tab';
+  import hbServerStatus from '@/components/Visualization/comps/hbServerStatus';
+  import airJsRollList from '@/components/Visualization/comps/airJsRollList';
+  import pollutionJsCompany from '@/components/Visualization/comps/pollutionJsCompany';
+  import hbCompanyMap from '@/components/Visualization/vMap/hbCompanyMap';
 
   export default {
     name: 'componentContainer',
@@ -78,7 +87,8 @@
       vKeyValueTable,digitalGrowth,mlAreaBasic,restrictedSection,pieMultiPercent,digitalLabel,alarmMultiPercent,
       vTimer,trafficMap,mlPieBasic,mlGCloud,mainImg,groupCarousel,utilizationRatio,mlBubble,numberTitleFlop,
       populationStructure,mlBarHoriGroup,gaugePie,dashboardPiePercent,circleState,titleValues,envBrushs,waterLevelChange,
-      airRollList,airStationList,airAQI,vImgLink,pollutionCompany,barYCategoryStack,weather
+      airRollList,airStationList,airAQI,vImgLink,pollutionCompany,barYCategoryStack,weather,airTarget,airStationMap,airStationInfo,baseCssLine,
+      tab,hbServerStatus,airJsRollList,pollutionJsCompany,hbCompanyMap
     },
     props: {
       component: {type: Object},
@@ -147,7 +157,16 @@
           "air-AQI":"air-AQI",
           "v-Img-Link":"v-Img-Link",
           "pollution-company":"pollution-company",
-          "weather":"weather"
+          "weather":"weather",
+          "tab":"tab",
+          "air-Target":"air-Target",
+          "air-Station-Map":"air-Station-Map",
+          "air-Station-Info":"air-Station-Info",
+          "base-Css-Line":"base-Css-Line",
+          "hb-Server-Status":"hb-Server-Status",
+          "air-Js-Roll-List":"air-Js-Roll-List",
+          "pollution-Js-Company":"pollution-Js-Company",
+          "hb-Company-Map":"hb-Company-Map"
         }
       }
     },
@@ -168,6 +187,7 @@
         this.setNewData(newData,i+1);
       }
     },
+
     computed: {},
     created() {
     }

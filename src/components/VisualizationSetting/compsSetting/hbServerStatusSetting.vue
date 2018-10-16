@@ -27,7 +27,7 @@
   import cmJsonEditor from '@/components/jsonEditor/cmJsonEditor'
 
   export default {
-    name: 'airAqiSetting',
+    name: 'hbMonitorSetting',
     components: {
       BaseSetting,
       posSizeSetting,

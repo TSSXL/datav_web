@@ -9,7 +9,10 @@
 </template>
 <script>
   import {getResultByApi} from '@/components/Visualization/api'
-
+  import {
+    getItem,
+    editItem
+  } from "@/views/visualization/screen/api";
 
 
   export default {
@@ -18,21 +21,54 @@
     },
     data() {
       return {
+        id: this.$route.params.id,
         list:[],
         imgUrl:"/static/weather/",
-        intervalSetting:null
+        intervalSetting:null,
+        url:this.option.data.datamap.url.map,
+        screen:
+          {
+            name: '',
+            desc: '',
+            tag: [],
+            publish: {},
+            version: '',
+            page: {},
+            components: []
+          }
       }
     },
     methods: {
       getInfo(){
-        getResultByApi("http://192.168.10.11:30812/api/airquality/getWeathers").then(response => {
-          if(response.code == 20000){
-            this.list.push(response.data[5] + " "+ response.data[6].substr(response.data[6].lastIndexOf("日")+1));
-            this.list.push(response.data[7]);
-            this.list.push(response.data[10]);
-            this.imgUrl += response.data[8];
-          }
-        })
+        if(this.option.data.weather != null && new Date().getDate()==this.option.data.time){
+          this.list = this.option.data.weather;
+          this.imgUrl = this.option.data.imgUrl;
+        }else{
+          getResultByApi(this.url).then(response => {
+            if(response.code == 20000){
+              this.list.push(response.data[5] + " "+ response.data[6].substr(response.data[6].lastIndexOf("日")+1));
+              this.list.push(response.data[7]);
+              this.list.push(response.data[10]);
+              this.imgUrl += response.data[8];
+              this.option.data.weather = this.list;
+              this.option.data.imgUrl = this.imgUrl;
+              this.option.data.time = new Date().getDate();
+              for(let i =0;i<this.screen.components.length;i++){
+                if(this.screen.components[i].name == "weather"){
+                  this.screen.components[i].option = this.option;
+                }
+              }
+              if(this.screen.components.length>0){
+                editItem(this.id, this.screen).then(response => {});
+              }
+            }
+          })
+        }
+      },
+      fetchData() {
+        getItem(this.id).then(response => {
+          this.screen = response.data;
+        });
       }
     },
     computed: {
@@ -65,6 +101,9 @@
         console.log(s);
         return s;
       }
+    },
+    created() {
+      this.fetchData();
     },
     mounted() {
       this.$nextTick(() => {

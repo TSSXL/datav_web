@@ -5,150 +5,67 @@
 </template>
 <script>
   import vChartBase from "../vChartBase";
+  import {getResultByApi,postResultByApi} from "../api"
 
   export default {
     name: 'mlBarBasic',
     extends:vChartBase,
     methods: {
-      getChartOption(option){
-        //地图点击后会重新调用这个方法刷新相关参数
-        if(option.newData!=null && option.newData.id!=null){
-          let newMap=[
-            {
-              "s": "1",
-              "y": "24",
-              "x": "08/23"
-            },
-            {
-              "s": "2",
-              "y": "0",
-              "x": "08/23"
-            },
-            {
-              "s": "3",
-              "y": "0",
-              "x": "08/23"
-            },
-            {
-              "s": "1",
-              "y": "31",
-              "x": "08/24"
-            },
-            {
-              "s": "2",
-              "y": "0",
-              "x": "08/24"
-            },
-            {
-              "s": "3",
-              "y": "0",
-              "x": "08/24"
-            },
-            {
-              "s": "1",
-              "y": "36",
-              "x": "80/25"
-            },
-            {
-              "s": "2",
-              "y": "0",
-              "x": "80/25"
-            },
-            {
-              "s": "3",
-              "y": "0",
-              "x": "80/25"
-            },
-            {
-              "s": "1",
-              "y": "0",
-              "x": "08/26"
-            },
-            {
-              "s": "2",
-              "y": "0",
-              "x": "08/26"
-            },
-            {
-              "s": "3",
-              "y": "120",
-              "x": "08/26"
-            },
-            {
-              "s": "1",
-              "y": "30",
-              "x": "08/27"
-            },
-            {
-              "s": "2",
-              "y": "0",
-              "x": "08/27"
-            },
-            {
-              "s": "3",
-              "y": "0",
-              "x": "08/27"
-            },
-            {
-              "s": "1",
-              "y": "49",
-              "x": "08/28"
-            },
-            {
-              "s": "2",
-              "y": "0",
-              "x": "08/28"
-            },
-            {
-              "s": "3",
-              "y": "0",
-              "x": "08/28"
-            },
-            {
-              "s": "1",
-              "y": "0",
-              "x": "08/29"
-            },
-            {
-              "s": "2",
-              "y": "60",
-              "x": "08/29"
-            },
-            {
-              "s": "3",
-              "y": "0",
-              "x": "08/29"
-            }
-          ]
-          option.data.static_data=newMap;
+    async  getChartOption(option){
+        if(option.data.data_type=='API'){
+          let url=option.data.data_api
+          if(option.newData!=null && option.newData.id!=null){
+
+            option.data.data_api_json.id=option.newData.id;
+          }
+
+          let data= await postResultByApi(url,option.data.data_api_json).then(response=>{
+            return response.data;
+          }).catch((e) => {
+            this.$message({
+              type: 'error',
+              message: option.data.data_api+"接口调用报错"
+            });
+          });
+
+          option.data.static_data=data;
+          return this.returnChartOption(option);
+
+
+        }else{
+          return this.returnChartOption(option);
         }
+      },
+
+      returnChartOption(option){
+
         let chartOption = {};
         chartOption.animation = option.animation;
         chartOption.textStyle = option.style.textStyle;
         chartOption.title = option.style.title;
 
-            let tooltip={
-            trigger: 'axis',
-              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-            },
-              textStyle:{
-                fontSize:25
-              },
-            formatter: function (params) {
-              var tar;
-              if (params[2].value != 0) {
-                tar = params[2];
-              }else if(params[1].value != 0) {
-                tar = params[1];
-              }
-              else {
-                tar = params[0];
-              }
-              return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
+        let tooltip={
+          trigger: 'axis',
+          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          },
+          textStyle:{
+            fontSize:25
+          },
+          formatter: function (params) {
+            var tar;
+            if (params[2].value != 0) {
+              tar = params[2];
+            }else if(params[1].value != 0) {
+              tar = params[1];
             }
+            else {
+              tar = params[0];
+            }
+            return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
           }
-          chartOption.tooltip = tooltip;
+        }
+        chartOption.tooltip = tooltip;
 
         chartOption.title = option.style.title;
         chartOption.grid = option.style.grid;

@@ -1,16 +1,17 @@
 <template>
   <section >
     <div  :id="option.cmpId" :style="`width: ${size.width}px; height: ${size.height}px;`">
-      <span :style="aqiStyle">{{aqiValue}}</span>
+      <span :style="aqiStyle">{{info.aqiValue}}</span>
       <img :src="backgroundImg" :style="`width: 100%; height: 100%;`" />
-      <span :style="statusStyle">空气质量等级:{{status}}</span>
-      <span :style="mainStyle">首要污染物:{{main}}</span>
+      <span :style="statusStyle">空气质量等级:{{info.status}}</span>
+      <span :style="mainStyle">首要污染物:{{info.main}}</span>
     </div>
 
   </section>
 </template>
 <script>
   import {getPath} from '@/views/dev/attachment/api'
+  import {postResultByApi} from "../api"
   export default {
     name: 'airAQI',
     components: {},
@@ -21,9 +22,12 @@
       return {
           aqi:0,
           backgroundImg:"",
-        aqiValue:40,
-        status:'优',
-        main:'PM2.5',
+        info:{
+          aqiValue:null,
+          status:'',
+          main:''
+        },
+
         size:{
           width:400,
           height:200
@@ -40,7 +44,35 @@
           height:obj.clientHeight
         };
       },
+      query(){
+        if(this.option.data.data_type=='API'){
+          let url=this.option.data.data_api
+          let param=this.option.data.data_api_param
 
+          postResultByApi(url,param).then(response=>{
+
+            this.option.data.static_data=response.data;
+            this.info=this.option.data.static_data[0];
+            if(this.info.aqiValue<50){
+              this.backgroundImg="/static/aqiGreen.png";
+            }else if(this.info.aqiValue>=50 && this.info.aqiValue<100){
+              this.backgroundImg="/static/aqiYellow.png";
+            }else if(this.info.aqiValue>100){
+              this.backgroundImg="/static/aqiRed.png";
+            }
+          }).catch(e => {
+            this.$message({
+              type: 'error',
+              message: this.option.data.data_api+"接口调用报错"
+            });
+          });
+
+
+        }else{
+          this.backgroundImg="/static/aqiGreen.png";
+          this.info=this.option.data.static_data[0];
+        }
+      }
 
     },
     computed: {
@@ -71,11 +103,14 @@
 
     },
     created() {
-      this.backgroundImg=this.path+"datav-border/5b8817467e54120032097d26.png";
+
       this.$nextTick(() => {
         this.size = this.getSize();
       });
-
+      this.query();
+      if(this.option.style.clock!=null && this.option.style.clock!=""){
+        setInterval(this.query, this.option.style.clock);
+      }
     },
     watch: {
       option: {

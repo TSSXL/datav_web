@@ -89,22 +89,22 @@ export default {
       list: null,
       listLoading: true,
       total: null,
-      paging: paging(),
-      queries: [{ name: 'label', value: '', operator: '$regex' }]
-    };
-  },
-  created() {
-  },
-  activated() {
-    this.fetchData()
-  },
-  methods: {
-    fetchData() {
-      this.listLoading = true
-      getList(this.paging, this.queries).then(res => {
-        this.list = res.data.content
-        this.total = res.data.totalElements
-        this.listLoading = false
+        paging: paging(),
+          queries: [{ name: 'label', value: '', operator: '$regex' }]
+      };
+    },
+    created() {
+    },
+    activated() {
+      this.fetchData()
+    },
+    methods: {
+      fetchData() {
+        this.listLoading = true
+        getList(this.paging, this.queries).then(res => {
+          this.list = res.data.content
+          this.total = res.data.totalElements
+          this.listLoading = false
       })
     },
     handleFilter() {

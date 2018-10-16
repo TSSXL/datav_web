@@ -1,20 +1,14 @@
 <template>
   <section>
     <div :id="option.cmpId" :style="`width: ${size.width}px; height: ${size.height}px;`">
-<div >
-  <ul class="item" :style="`line-height:${option.style.ulLineHeight}px;font-size:${option.style.fontSize}px;color:${option.style.color};width: ${size.width}px; height: ${size.height}px;background-color:${option.style.backgroundColor}`">
-    <li>
-      <span style="width: 45%;">站点名称</span>
-      <span style="width: 35%;">主要污染物</span>
-      <span style="width: 10%;">AQI</span>
-    </li>
-      <vue-seamless-scroll :data="list" :class-option="classOption"
-                           @copy-data="list = list.concat(list)"
-                           class="warp"
-                           :style="`width: ${size.width}px; height: ${size.height}px;`"
-      >
-
-          <li v-for="item in list" >
+      <div id="eventList">
+        <ul class="item" :style="`line-height:${option.style.ulLineHeight}px;font-size:${option.style.fontSize}px;color:${option.style.color};width: ${size.width}px; height: ${size.height}px;background-color:${option.style.backgroundColor}`">
+          <li>
+            <span style="width: 45%;">站点名称</span>
+            <span style="width: 35%;">主要污染物</span>
+            <span style="width: 10%;">AQI</span>
+          </li>
+          <li v-for="item in lists" >
             <span style="width: 45%;">{{item.PositionName}}</span>
             <span style="width: 35%;">{{item.PrimaryPollutant}}</span>
             <span :style="`width: 10%;height: 30px;
@@ -23,11 +17,12 @@
     text-align: center;background:${item.color};color:#103256`">{{item.AQI}}</span>
           </li>
 
-      </vue-seamless-scroll>
-  </ul>
-</div>
+        </ul>
+
+
 
       </div>
+    </div>
   </section>
 </template>
 <script>
@@ -49,7 +44,9 @@
           width:400,
           height:200
         },
-        list:[]
+        lists:[],
+        list:[],
+        step:5
       }
     },
     methods: {
@@ -83,7 +80,29 @@
         } else {
           this.list = this.option.data.static_data;
         }
-      }
+        if(this.options.style.step!=null){
+            this.step=this.options.style.step;
+        }
+        this.scroll();
+      },
+      //事件滚动效果
+      scroll(){
+        this.lists=[];
+        if(this.list.length>=this.step){
+            for(let i=0;i<this.step;i++){
+              this.list.push(this.list[i]);
+              this.list.shift();
+            }
+
+        }
+        for(let i=0;i<this.list.length;i++) {
+          if (i >= this.step) {
+            break;
+          }
+          this.lists.push(this.list[i]);
+        }
+
+      },
 
 
     },
@@ -92,19 +111,8 @@
       path() {
         return getPath()
       },
-      classOption: function () {
-        return {
-          step: 1,
-          limitMoveNum: 5
-        }
-      },
-      pos () {
-        return {
-          transform: `translate(${this.xPos}px,${this.yPos}px)`,
-          transition: `all ease-in ${this.delay}ms`,
-          overflow: 'hidden'
-        }
-      }
+
+
     },
     created() {
       this.$nextTick(() => {
@@ -126,6 +134,7 @@
       }
     },
   mounted(){
+    setInterval(this.scroll, 2000);
 //    $('.dowebok').liMarquee({
 //      direction: 'up'
 //    });
