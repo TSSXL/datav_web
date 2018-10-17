@@ -5,8 +5,7 @@ import { getToken } from '@/utils/auth'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: store.getters.urls.dataVCenter, // api的base_url
-  //baseURL: "http://localhost:8080/", // api的base_url
+  baseURL: process.env.BASE_API, // api的base_url
   timeout: 30000                 // 请求超时时间
 })
 
@@ -15,6 +14,7 @@ service.interceptors.request.use(config => {
   if (store.getters.token) {
     config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
+  console.log(config);
   return config
 }, error => {
   // Do something with request error
@@ -25,6 +25,7 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(
   response => {
+    console.log(response);
     /**
      * code为非20000是抛错 可结合自己业务进行修改
      */
@@ -56,6 +57,7 @@ service.interceptors.response.use(
     }
   },
   error => {
+    console.log('23');
     console.log('err' + error)// for debug
     /*
      Message({
