@@ -2,14 +2,14 @@
   <section>
     <div :id="option.cmpId" :style="`width: ${size.width}px; height: ${size.height}px;`">
       <div id="eventList">
-        <ul class="item" :style="`line-height:${option.style.ulLineHeight}px;font-size:${option.style.fontSize}px;color:${option.style.color};width: ${size.width}px; height: ${size.height}px;background-color:${option.style.backgroundColor}`">
+        <ul @mouseover="hoverList" @mouseout="outList" class="item" :style="`line-height:${option.style.ulLineHeight}px;font-size:${option.style.fontSize}px;color:${option.style.color};width: ${size.width}px; height: ${size.height}px;background-color:${option.style.backgroundColor}`">
           <li>
             <span style="width: 45%;">站点名称</span>
             <span style="width: 35%;">主要污染物</span>
             <span style="width: 10%;">AQI</span>
           </li>
           <li v-for="item in lists" >
-            <span style="width: 45%;">{{item.PositionName}}</span>
+            <span style="width: 45%;cursor: pointer" @click="changeId(item)">{{item.PositionName}}</span>
             <span style="width: 35%;">{{item.PrimaryPollutant}}</span>
             <span :style="`width: 10%;height: 30px;
             line-height:30px;margin-top:10px;
@@ -46,7 +46,8 @@
         },
         lists:[],
         list:[],
-        step:5
+        step:5,
+        interval:null
       }
     },
     methods: {
@@ -80,8 +81,9 @@
         } else {
           this.list = this.option.data.static_data;
         }
-        if(this.options.style.step!=null){
-            this.step=this.options.style.step;
+
+        if(this.option.style.step!=null){
+            this.step=this.option.style.step;
         }
         this.scroll();
       },
@@ -91,7 +93,11 @@
         if(this.list.length>=this.step){
             for(let i=0;i<this.step;i++){
               this.list.push(this.list[i]);
-              this.list.shift();
+              //当前次数为最后一次时，根据步数切割数组
+              if(i==(this.step-1)){
+                this.list.splice(0,this.step);
+              }
+
             }
 
         }
@@ -102,7 +108,18 @@
           this.lists.push(this.list[i]);
         }
 
+
       },
+      changeId(item){
+        this.$emit('ievent',{"id":item.StationID});
+      },
+      hoverList(){
+        clearInterval(this.interval);//停止
+
+      },
+      outList(){
+        this.interval=setInterval(this.scroll, 2000); //重新启动即可
+      }
 
 
     },
@@ -134,7 +151,7 @@
       }
     },
   mounted(){
-    setInterval(this.scroll, 2000);
+    this.interval=setInterval(this.scroll, 2000);
 //    $('.dowebok').liMarquee({
 //      direction: 'up'
 //    });

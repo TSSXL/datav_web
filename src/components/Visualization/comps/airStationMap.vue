@@ -27,7 +27,9 @@
           let url=option.data.data_api
           let param=option.data.data_api_param
           postResultByApi(url,param).then(async response=>{
+              console.log(response);
             this.chartOption.series[0].data=response.data;
+
             this.draw();
           }).catch(e => {
             this.$message({
