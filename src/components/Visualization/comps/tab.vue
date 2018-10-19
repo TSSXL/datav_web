@@ -4,7 +4,6 @@
       <el-radio-button label="g">废气</el-radio-button>
       <el-radio-button label="w">废水</el-radio-button>
     </el-radio-group>
-    </div>
 
   </section>
 </template>
