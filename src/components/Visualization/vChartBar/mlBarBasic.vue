@@ -53,15 +53,8 @@
             fontSize:25
           },
           formatter: function (params) {
-            var tar;
-            if (params[2].value != 0) {
-              tar = params[2];
-            }else if(params[1].value != 0) {
-              tar = params[1];
-            }
-            else {
-              tar = params[0];
-            }
+            var tar= params[0];
+
             return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
           }
         }

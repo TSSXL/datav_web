@@ -387,11 +387,12 @@
       },
       fetchOptions() {
         getOptions('visualizationDatasource').then(response => {
-          this.settingOption.dataSourceOptions = response.data.options
+          this.settingOption.dataSourceOptions = response.data.data.options
+
         });
 
         getOptions('font').then(response => {
-          this.settingOption.fontOptions = response.data.options
+          this.settingOption.fontOptions = response.data.data.options
         });
       },
       resizeScreen() {
@@ -868,6 +869,7 @@
     height: 25px;
     margin-top: 0;
     top:0px;left:0px;
+    z-index: 999999;
   }
 
   .button-tip a {

@@ -79,6 +79,7 @@
   import airJsRollListSetting from '@/components/VisualizationSetting/compsSetting/airJsRollListSetting'
   import pollutionJsCompanySetting from '@/components/VisualizationSetting/compsSetting/pollutionJsCompanySetting'
   import hbCompanyMapSetting from '@/components/VisualizationSetting/vMapSetting/hbCompanyMapSetting'
+  import hbTianDiMapSetting from '@/components/VisualizationSetting/vMapSetting/hbTianDiMapSetting'
 
   export default {
     name: 'settingContainer',
@@ -91,7 +92,8 @@
       mlPieBasicSetting,mlGCloudSetting,mainImgSetting,mlBubbleSetting,numberTitleFlopSetting,populationStructureSetting,
       mlBarHoriGroupSetting,gaugePieSetting,dashboardPiePercentSetting,circleStateSetting,titleValuesSetting,
       airRollListSetting,airStationListSetting,airAqiSetting,vImgLinkSetting,weatherSetting,tabSetting,airTargetSetting,airStationMapSetting,
-      airStationInfoSetting,baseCssLineSetting,hbServerStatusSetting,airJsRollListSetting,pollutionJsCompanySetting,hbCompanyMapSetting
+      airStationInfoSetting,baseCssLineSetting,hbServerStatusSetting,airJsRollListSetting,pollutionJsCompanySetting,hbCompanyMapSetting,
+      hbTianDiMapSetting
     },
     props: {
       component: { type: Object },
@@ -167,7 +169,8 @@
           "hb-Server-Status":"hb-Server-Status-Setting",
           "air-Js-Roll-List":"air-Js-Roll-List-Setting",
           "pollution-Js-Company":"pollution-Js-Company-Setting",
-          "hb-Company-Map":"hb-Company-Map-Setting"
+          "hb-Company-Map":"hb-Company-Map-Setting",
+          "hb-Tian-Di-Map":"hb-Tian-Di-Map-Setting"
         }
       }
     },

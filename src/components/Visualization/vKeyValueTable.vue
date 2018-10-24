@@ -7,7 +7,7 @@
         <div class="clear"></div>
       </div>
       <div v-for="(item,index) in keyList" :style="`line-height: ${rowHeight}px;border-bottom:${index < keyList.length - 1 ? option.style.tableRow.splitLine.lineWidth : 0 }px ${option.style.tableRow.splitLine.lineColor} solid;`">
-        <div class="key" :style="`width: ${option.style.column.firstColumnWidth}%;border-right:${option.style.column.splitLine.lineWidth}px ${option.style.column.splitLine.lineColor} solid;color:${option.style.column.firstColumn.color};font-size: ${option.style.column.firstColumn.fontSize}px;font-weight: ${option.style.column.firstColumn.fontWeight};background-color: ${getBgColor(index,'key')};text-align: ${option.style.column.firstColumn.textAlign};padding-left:${option.style.tableCell.paddingLeft}px;padding-right:${option.style.tableCell.paddingRight}px;`">{{item}}</div>
+        <div class="key" :style="`width: ${option.style.column.firstColumnWidth}%;border-right:${option.style.column.splitLine.lineWidth}px ${option.style.column.splitLine.lineColor} solid;color:${option.style.column.firstColumn.color};font-size: ${option.style.column.firstColumn.fontSize}px;font-weight: ${option.style.column.firstColumn.fontWeight};background-color: ${getBgColor(index,'key')};text-align: ${option.style.column.firstColumn.textAlign};padding-left:${option.style.tableCell.paddingLeft}px;padding-right:${option.style.tableCell.paddingRight}px;`" ><span style="cursor:pointer;" @click="changeArea(item)">{{item}}</span></div>
         <div class="val" :style="`width: ${100 - option.style.column.firstColumnWidth}%;color:${option.style.column.secondColumn.color};font-size: ${option.style.column.secondColumn.fontSize}px;font-weight: ${option.style.column.secondColumn.fontWeight};background-color: ${getBgColor(index,'val')};text-align: ${option.style.column.secondColumn.textAlign};padding-left:${option.style.tableCell.paddingLeft}px;padding-right:${option.style.tableCell.paddingRight}px;`">{{option.data.static_data[1][item]}}</div>
         <div class="clear"></div>
       </div>
@@ -16,6 +16,7 @@
 </template>
 <script>
   import {getPath} from '@/views/dev/attachment/api'
+  import {postResultByApi} from "./api"
   export default {
     name: 'vKeyValueTable',
     components: {},
@@ -58,16 +59,47 @@
       },
       init(){
         this.size = this.getSize();
-        this.keyList = Object.keys(this.option.data.static_data[1]);
-        if(this.option.style.table.isResponsive){
-          if(this.option.style.tableHead.show)
-            this.rowHeight = (this.size.height - this.option.style.tableHead.height - this.option.style.tableRow.splitLine.lineWidth * (this.keyList.length - 1) ) / this.keyList.length;
+        if(this.option.data.data_type=='API'){
+          let url=this.option.data.data_api
+          let param=this.option.data.data_api_json
+
+          postResultByApi(url,param).then(async response=>{
+
+            this.option.data.static_data[1]=response.data;
+            this.keyList = Object.keys(this.option.data.static_data[1]);
+            if(this.option.style.table.isResponsive){
+              if(this.option.style.tableHead.show)
+                this.rowHeight = (this.size.height - this.option.style.tableHead.height - this.option.style.tableRow.splitLine.lineWidth * (this.keyList.length - 1) ) / this.keyList.length;
+              else
+                this.rowHeight = (this.size.height - this.option.style.tableRow.splitLine.lineWidth * (this.keyList.length - 1) ) / this.keyList.length;
+            }
+            else
+              this.rowHeight = 30;
+          }).catch(e => {
+            this.$message({
+              type: 'error',
+              message: this.option.data.data_api+"接口调用报错"
+            });
+          });
+
+
+        }else{
+          this.keyList = Object.keys(this.option.data.static_data[1]);
+          if(this.option.style.table.isResponsive){
+            if(this.option.style.tableHead.show)
+              this.rowHeight = (this.size.height - this.option.style.tableHead.height - this.option.style.tableRow.splitLine.lineWidth * (this.keyList.length - 1) ) / this.keyList.length;
+            else
+              this.rowHeight = (this.size.height - this.option.style.tableRow.splitLine.lineWidth * (this.keyList.length - 1) ) / this.keyList.length;
+          }
           else
-            this.rowHeight = (this.size.height - this.option.style.tableRow.splitLine.lineWidth * (this.keyList.length - 1) ) / this.keyList.length;
+            this.rowHeight = 30;
         }
-        else
-          this.rowHeight = 30;
-      }
+
+
+      },
+      changeArea(item){
+        this.$emit('ievent',{"areaName":item});
+      },
     },
     computed: {
       path() {

@@ -76,6 +76,7 @@
   import airJsRollList from '@/components/Visualization/comps/airJsRollList';
   import pollutionJsCompany from '@/components/Visualization/comps/pollutionJsCompany';
   import hbCompanyMap from '@/components/Visualization/vMap/hbCompanyMap';
+  import hbTianDiMap from '@/components/Visualization/vMap/hbTianDiMap';
 
   export default {
     name: 'componentContainer',
@@ -88,7 +89,7 @@
       vTimer,trafficMap,mlPieBasic,mlGCloud,mainImg,groupCarousel,utilizationRatio,mlBubble,numberTitleFlop,
       populationStructure,mlBarHoriGroup,gaugePie,dashboardPiePercent,circleState,titleValues,envBrushs,waterLevelChange,
       airRollList,airStationList,airAQI,vImgLink,pollutionCompany,barYCategoryStack,weather,airTarget,airStationMap,airStationInfo,baseCssLine,
-      tab,hbServerStatus,airJsRollList,pollutionJsCompany,hbCompanyMap
+      tab,hbServerStatus,airJsRollList,pollutionJsCompany,hbCompanyMap,hbTianDiMap
     },
     props: {
       component: {type: Object},
@@ -166,7 +167,8 @@
           "hb-Server-Status":"hb-Server-Status",
           "air-Js-Roll-List":"air-Js-Roll-List",
           "pollution-Js-Company":"pollution-Js-Company",
-          "hb-Company-Map":"hb-Company-Map"
+          "hb-Company-Map":"hb-Company-Map",
+          "hb-Tian-Di-Map":"hb-Tian-Di-Map"
         }
       }
     },
