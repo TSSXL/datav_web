@@ -32,7 +32,7 @@
   import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
   import {BmlHeatmap} from 'vue-baidu-map'
   import {postResultByApi} from "../api"
-  import remoteLoad from '@/utils/remoteLoad.js'
+  import remoteLoad from '../../../utils/remoteload.js'
 
 
   export default {
@@ -500,17 +500,17 @@
     watch: {
       option: {
         handler(curVal, oldVal) {
+          this.size = this.getSize();
           if(curVal.newData!=null && curVal.newData.areaName!=""){
             let areaInfo=this.areaMap[curVal.newData.areaName];
             this.mapObject.centerAndZoom(new T.LngLat(areaInfo.lng, areaInfo.lat), areaInfo.zoom)
 
           }
 
-          this.size = this.getSize();
+
         },
         deep: true
-      },
-
+      }
 
     }
   }
