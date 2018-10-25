@@ -1,7 +1,7 @@
 <template>
   <section  >
     <div :id="option.cmpId" :style="`width: ${size.width}px; height: ${size.height}px;`">
-      <div id='map' >
+      <div id='map' style="width: 100%;height: 100%">
 
       </div>
 
@@ -476,16 +476,12 @@
 
     },
     mounted(){
-      if (window.T ) {
-        this.query()
-        // 未载入高德地图API，则先载入API再初始化
-      } else {
-        Promise.all([
+      Promise.all([
           remoteLoad('http://api.tianditu.gov.cn/api?v=4.0&tk=674ebcb845d2ee07fe94b111519b1518')
         ]).then(() => {
           this.query()
         })
-      }
+
     },
     created() {
 
@@ -516,8 +512,5 @@
   }
 </script>
 <style>
-  #map{
-    width: 100%;
-    height: 100%;
-  }
+
 </style>
