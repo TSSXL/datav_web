@@ -161,6 +161,42 @@ router.beforeEach(async (to, from, next) => {
         "sort": 0,
         "organization": [],
         "desc": "",
+        "page": "list",
+        "entity": "ws",
+        "module": "data",
+        "file": "data/ws/list",
+        "name": "data_ws_list",
+        "_id": "5ae97ebdef15960032010ad741",
+        "key": 149
+      }, {
+        "type": "input",
+        "sort": 0,
+        "organization": [],
+        "desc": "",
+        "page": "add",
+        "entity": "ws",
+        "module": "data",
+        "file": "data/ws/add",
+        "name": "data_ws_add",
+        "_id": "5ae97ebbef15960030102ad7322",
+        "key": 150
+      }, {
+        "type": "input",
+        "sort": 0,
+        "organization": [],
+        "desc": "",
+        "page": "edit",
+        "entity": "ws",
+        "module": "data",
+        "file": "data/ws/edit",
+        "name": "data_ws_edit",
+        "_id": "5ae97ebbef15936003010ad73234444",
+        "key": 150
+      }, {
+        "type": "input",
+        "sort": 0,
+        "organization": [],
+        "desc": "",
         "page": "index",
         "entity": "component",
         "module": "visualization",
@@ -874,7 +910,7 @@ router.beforeEach(async (to, from, next) => {
             "path": "api",
             "component": "data_index",
             "name": "",
-            "parentId": "5aed25c46355ee2b58339bcc",
+            "parentId": "5aed25c46355ee2b58339b3c",
             "desc": "",
             "meta": { "title": "Api接入", "keepAlive": false },
             "_id": "5aed25c46355ee2b58339be7",
@@ -921,7 +957,7 @@ router.beforeEach(async (to, from, next) => {
             "path": "db",
             "component": "data_index",
             "name": "",
-            "parentId": "5aed25c46355ee2b58339bcc",
+            "parentId": "5aed25c46355ee2b58339b3c",
             "desc": "",
             "meta": { "title": "数据库接入", "keepAlive": false },
             "_id": "5aed25c46355ee2b58339be7",
@@ -959,6 +995,53 @@ router.beforeEach(async (to, from, next) => {
                 "desc": "",
                 "meta": { "title": "编辑数据库", "keepAlive": false },
                 "_id": "5aed25c46355ee2b58339c46"
+              }]
+          },
+          {
+            "group": "default2.0",
+            "sort": 0,
+            "organization": [],
+            "path": "ws",
+            "component": "data_index",
+            "name": "",
+            "parentId": "5aed25c46355ee2b58339b3c",
+            "desc": "",
+            "meta": { "title": "WebSocket接入", "keepAlive": false },
+            "_id": "5aed25c46355ee2b8339be72",
+            "children": [
+              {
+                "group": "default2.0",
+                "sort": 0,
+                "organization": [],
+                "path": "add",
+                "component": "data_ws_add",
+                "name": "",
+                "parentId": "5aed25c46355ee2b8339be72",
+                "desc": "",
+                "meta": { "title": "新建WebSocket", "keepAlive": false },
+                "_id": "5aed25c426355ee2b58339c44"
+              }, {
+                "group": "default2.0",
+                "sort": 1,
+                "organization": [],
+                "path": "list",
+                "component": "data_ws_list",
+                "name": "",
+                "parentId": "5aed25c46355ee2b8339be72",
+                "desc": "",
+                "meta": { "title": "WebSocket列表", "keepAlive": true },
+                "_id": "5aed25c46355ee22b58339c45"
+              }, {
+                "group": "default2.0",
+                "sort": 2,
+                "organization": [],
+                "path": "edit/:id",
+                "component": "data_ws_edit",
+                "name": "",
+                "parentId": "5aed25c46355ee2b8339be72",
+                "desc": "",
+                "meta": { "title": "编辑WebSocket", "keepAlive": false },
+                "_id": "5aed25c463255ee2b58339c46"
               }]
           }
         ]
@@ -1208,6 +1291,24 @@ router.beforeEach(async (to, from, next) => {
           "label": "数据库接入",
           "parentId": "5ae96cc2ef1596003010ad21",
           "_id": "5aea90a6cd213a002ee8886622"
+
+        },{
+          "target": "",
+          "router": ["/data", "ws", "list"],
+          "hidden": false,
+          "disabled": false,
+          "dropdown": true,
+          "type": "",
+          "group": "default2.0",
+          "sort": 0,
+          "organization": [],
+          "desc": "",
+          "icon": "fa fa-sitemap",
+          "redirect": "",
+          "name": "",
+          "label": "WebSocket接入",
+          "parentId": "5ae96cc2ef1596003010ad21",
+          "_id": "5aea90a6cd213a002ee28886622"
 
         }]
       }, {

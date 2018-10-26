@@ -40,11 +40,11 @@
 
       <el-table-column key='instance'
         show-overflow-tooltip
-        label="数据库实例"
+        label="地址"
         width="120" align="center" prop="instance">
         <template slot-scope="scope">
 
-            {{scope.row.instance}}
+            {{scope.row.addr}}
         </template>
       </el-table-column>
 

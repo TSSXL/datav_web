@@ -1,6 +1,19 @@
 <template>
 <div>
   <el-scrollbar class='page-component__scroll' tag="div" style="height: calc(100vh - 110px);margin-left: 8%">
+
+    <div class="filter-container" style="margin-top: 10px; margin-left: 7px;">
+
+            <span>
+                <el-input @keyup.enter.native="handleFilter" style="width: 200px;"
+                          class="filter-item" placeholder="名称" v-model="queries[0].value" size="mini">
+                </el-input>
+            </span>
+
+
+      <el-button class="filter-item" type="primary" icon="search" @click="handleFilter" size="mini">搜索</el-button>
+
+    </div>
     <div>
       <div class="screen">
         <div class="new-wrap">
@@ -67,27 +80,29 @@
         listLoading: true,
         total: null,
         paging: paging(),
-        objQuery: []
+        objQuery: [],
+        queries: [{ "name": 'name', "value": '' }]
       };
     },
-    computed: {
-      path() {
-        return getPath()
+  computed: {
+    path() {
+      return getPath()
       },
       ...mapGetters([
-        'appid'
-      ]),
-    },
-    methods: {
-      fetchData() {
-        this.listLoading = true;
-        this.objQuery = []
-        this.objQuery.push({refApp: this.appid})
-        getListCover(this.paging, this.objQuery).then(response => {
-          this.list = response.data.content;
-          this.total = response.data.totalElements;
-          this.listLoading = false;
-        });
+          'appid'
+        ]),
+      },
+      methods: {
+        fetchData() {
+          this.listLoading = true;
+          if(this.queries.length<=1){
+          this.queries.push({"name":"refApp","value": this.appid})
+          }
+          getListCover(this.paging, this.queries).then(res => {
+            this.list = res.data.content
+            this.total = res.data.totalElements
+            this.listLoading = false
+        })
       },
       create() {
         this.$router.push('/visualization/vistemplate/select')
@@ -117,7 +132,7 @@
           cancelButtonText: '取消',
           confirmButtonText: '确定',
           type: 'warning',
-          center: true
+            center: true
         }).then(() => {
           this.delete(item);
         }).catch(() => {
@@ -126,6 +141,10 @@
             message: '已取消删除'
           });
         });
+      },
+      handleFilter(){
+        this.paging.currentPage = 1
+        this.fetchData();
       },
       delete(item){
         removeItem(item.id).then(response => {

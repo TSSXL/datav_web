@@ -14,12 +14,12 @@
         <cm-json-editor v-model="option" style="font-size: 10px;" @close="optionDialogVisible=false"></cm-json-editor>
       </el-dialog>
     </template>
-    <template slot="data">
-      <data-source-setting :option="component.option" :setting="setting"></data-source-setting>
+  <template slot="data">
+    <data-source-setting :option="component.option" :setting="setting"></data-source-setting>
     </template>
-  </base-setting>
-</template>
-<script>
+    </base-setting>
+    </template>
+    <script>
   import errorTip from '@/components/Validate/errorTip'
   import BaseSetting from "../BaseSetting";
   import posSizeSetting from "../posSizeSetting";
