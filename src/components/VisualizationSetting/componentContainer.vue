@@ -74,9 +74,11 @@
   import tab from '@/components/Visualization/comps/tab';
   import hbServerStatus from '@/components/Visualization/comps/hbServerStatus';
   import airJsRollList from '@/components/Visualization/comps/airJsRollList';
+  import newDataList from '@/components/Visualization/comps/newDataList';
   import pollutionJsCompany from '@/components/Visualization/comps/pollutionJsCompany';
   import hbCompanyMap from '@/components/Visualization/vMap/hbCompanyMap';
   import hbTianDiMap from '@/components/Visualization/vMap/hbTianDiMap';
+  import qlzcTarget from '@/components/Visualization/comps/qlzcTarget';
 
   export default {
     name: 'componentContainer',
@@ -89,7 +91,7 @@
       vTimer,trafficMap,mlPieBasic,mlGCloud,mainImg,groupCarousel,utilizationRatio,mlBubble,numberTitleFlop,
       populationStructure,mlBarHoriGroup,gaugePie,dashboardPiePercent,circleState,titleValues,envBrushs,waterLevelChange,
       airRollList,airStationList,airAQI,vImgLink,pollutionCompany,barYCategoryStack,weather,airTarget,airStationMap,airStationInfo,baseCssLine,
-      tab,hbServerStatus,airJsRollList,pollutionJsCompany,hbCompanyMap,hbTianDiMap
+      tab,hbServerStatus,airJsRollList,pollutionJsCompany,hbCompanyMap,hbTianDiMap,newDataList,qlzcTarget
     },
     props: {
       component: {type: Object},
@@ -168,7 +170,10 @@
           "air-Js-Roll-List":"air-Js-Roll-List",
           "pollution-Js-Company":"pollution-Js-Company",
           "hb-Company-Map":"hb-Company-Map",
-          "hb-Tian-Di-Map":"hb-Tian-Di-Map"
+          "hb-Tian-Di-Map":"hb-Tian-Di-Map",
+          "new-Data-List":"new-Data-List",
+          "qlzc-Target":"qlzc-Target"
+
         }
       }
     },
