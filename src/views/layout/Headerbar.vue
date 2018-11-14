@@ -64,7 +64,8 @@
       }
     },
     created() {
-      if(process.env.HEADER_ICON!=""){
+      if(process.env.HEADER_ICON!="" && process.env.HEADER_ICON!="undefined"){
+
         this.showIcon=process.env.HEADER_ICON;
       }
     }
