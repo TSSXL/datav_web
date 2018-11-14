@@ -1,6 +1,12 @@
 <template>
   <div class="header">
-    <img :src="logoPng" width="106" height="32" alt="" class="logoPng"/>
+    <img :src="logoPng" width="106" height="32" alt="" class="logoPng" v-if="showIcon=='pt'"/>
+    <template v-if="showIcon=='hb'">
+      <div style="display: inline-block;text-align: center;font-size: 12px">
+        <p style="height: 15px;margin: 0px">宁波市生态环境大数据</p>
+        <p style="margin: 0px">支撑平台</p>
+      </div>
+    </template>
     <div class="topMenu">
       <a class='inlineBlock' v-for="item in menus" v-if="!item.hidden" :key="item._id" :href="to(item)" :target="item.target">{{item.label}}</a>
     </div>
@@ -34,7 +40,8 @@
   export default {
     data() {
       return {
-        logoPng: logoPng
+        logoPng: logoPng,
+        showIcon:"pt"
       }
     },
     computed: {
@@ -57,6 +64,9 @@
       }
     },
     created() {
+      if(process.env.HEADER_ICON!=""){
+        this.showIcon=process.env.HEADER_ICON;
+      }
     }
   }
 </script>

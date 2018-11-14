@@ -57,9 +57,16 @@
               this.backgroundImg="/static/aqiGreen.png";
             }else if(this.info.aqiValue>=50 && this.info.aqiValue<100){
               this.backgroundImg="/static/aqiYellow.png";
-            }else if(this.info.aqiValue>100){
+            }else if(this.info.aqiValue>=100 && this.info.aqiValue<150){
+              this.backgroundImg="/static/aqiOrange.png";
+            }else if(this.info.aqiValue>=150 && this.info.aqiValue<200){
               this.backgroundImg="/static/aqiRed.png";
+            }else if(this.info.aqiValue>=200 && this.info.aqiValue<300){
+              this.backgroundImg="/static/aqiPink.png";
+            }else if(this.info.aqiValue>=300){
+              this.backgroundImg="/static/aqiDeepRed.png";
             }
+
           }).catch(e => {
             this.$message({
               type: 'error',
