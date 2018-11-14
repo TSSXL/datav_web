@@ -64,8 +64,7 @@
       }
     },
     created() {
-      if(process.env.HEADER_ICON!="" && process.env.HEADER_ICON!="undefined"){
-
+      if(process.env.HEADER_ICON!="" && process.env.HEADER_ICON!=undefined){
         this.showIcon=process.env.HEADER_ICON;
       }
     }
