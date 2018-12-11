@@ -3,8 +3,10 @@
     <div  :id="option.cmpId" :style="`width: ${size.width}px; height: ${size.height}px;`">
       <span :style="aqiStyle">{{info.aqiValue}}</span>
       <img :src="backgroundImg" :style="`width: 100%; height: 100%;`" />
-      <span :style="statusStyle">空气质量等级:{{info.status}}</span>
+      <span :style="statusStyle">空气质量状态:{{info.status}}</span>
+      <span :style="statusLevel">等级:{{info.level}}</span>
       <span :style="mainStyle">首要污染物:{{info.main}}</span>
+      <span :style="pmStyle">PM2.5浓度:{{info.pm}}μg/m3</span>
     </div>
 
   </section>
@@ -104,6 +106,20 @@
         let s=`position: absolute;`
         if(this.option.style.aqiMainStyle!=null){
           s+=this.option.style.aqiMainStyle;
+        }
+        return s;
+      },
+      statusLevel(){
+        let s=`position: absolute;`
+        if(this.option.style.statusLevel!=null){
+          s+=this.option.style.statusLevel;
+        }
+        return s;
+      },
+      pmStyle(){
+        let s=`position: absolute;`
+        if(this.option.style.pmStyle!=null){
+          s+=this.option.style.pmStyle;
         }
         return s;
       }
