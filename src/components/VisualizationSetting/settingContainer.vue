@@ -80,6 +80,7 @@
   import pollutionJsCompanySetting from '@/components/VisualizationSetting/compsSetting/pollutionJsCompanySetting'
   import hbCompanyMapSetting from '@/components/VisualizationSetting/vMapSetting/hbCompanyMapSetting'
   import hbTianDiMapSetting from '@/components/VisualizationSetting/vMapSetting/hbTianDiMapSetting'
+  import dongMapSetting from '@/components/VisualizationSetting/vMapSetting/dongMapSetting'
   import newDataListSetting from '@/components/VisualizationSetting/compsSetting/newDataListSetting'
   import qlzcTargetSetting from '@/components/VisualizationSetting/compsSetting/qlzcTargetSetting'
 
@@ -95,7 +96,7 @@
       mlBarHoriGroupSetting,gaugePieSetting,dashboardPiePercentSetting,circleStateSetting,titleValuesSetting,
       airRollListSetting,airStationListSetting,airAqiSetting,vImgLinkSetting,weatherSetting,tabSetting,airTargetSetting,airStationMapSetting,
       airStationInfoSetting,baseCssLineSetting,hbServerStatusSetting,airJsRollListSetting,pollutionJsCompanySetting,hbCompanyMapSetting,
-      hbTianDiMapSetting,newDataListSetting,qlzcTargetSetting
+      hbTianDiMapSetting,newDataListSetting,qlzcTargetSetting,dongMapSetting
     },
     props: {
       component: { type: Object },
@@ -174,7 +175,8 @@
           "hb-Company-Map":"hb-Company-Map-Setting",
           "hb-Tian-Di-Map":"hb-Tian-Di-Map-Setting",
           "new-Data-List":"new-Data-List-Setting",
-          "qlzc-Target":"qlzc-Target-Setting"
+          "qlzc-Target":"qlzc-Target-Setting",
+          "dong-Map":"dong-Map-Setting"
         }
       }
     },
